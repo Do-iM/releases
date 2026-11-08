@@ -1,0 +1,36 @@
+name: screenchat
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 빌드할 비공개 저장소의 커밋
+        required: true
+      channel:
+        description: prod(외부 배포) 또는 dev(내부 개발)
+        type: choice
+        options: [dev, prod]
+        required: true
+      version:
+        description: 버전 (prod는 tauri.conf.json의 version과 같아야 한다)
+        required: true
+      notes:
+        description: 바뀐 점 (앱의 업데이트 화면에 보인다)
+        required: true
+
+permissions:
+  contents: write
+
+concurrency: screenchat-${{ inputs.channel }}
+
+jobs:
+  release:
+    uses: ./.github/workflows/_tauri.yml
+    with:
+      app: screenchat
+      display_name: Screen Chat
+      ref: ${{ inputs.ref }}
+      channel: ${{ inputs.channel }}
+      version: ${{ inputs.version }}
+      notes: ${{ inputs.notes }}
+    secrets: inherit

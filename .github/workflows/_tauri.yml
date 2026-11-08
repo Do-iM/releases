@@ -1,0 +1,150 @@
+name: tauri-release
+
+on:
+  workflow_call:
+    inputs:
+      app:
+        description: 앱 이름. 환경, 태그, 업데이트 파일 이름이 된다
+        type: string
+        required: true
+      display_name:
+        description: 릴리스 이름에 쓰는 앱 이름
+        type: string
+        required: true
+      source_path:
+        description: 소스 저장소 안에서 앱이 있는 폴더
+        type: string
+        default: "."
+      dev_config:
+        description: dev 채널에서 덧붙이는 설정 (source_path 기준)
+        type: string
+        default: src-tauri/tauri.dev.conf.json
+      platforms:
+        description: 빌드할 플랫폼 목록
+        type: string
+        default: '["macos", "windows"]'
+      ref:
+        type: string
+        required: true
+      channel:
+        type: string
+        required: true
+      version:
+        type: string
+        required: true
+      notes:
+        type: string
+        required: true
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.names.outputs.environment }}
+      tag: ${{ steps.names.outputs.tag }}
+      name: ${{ steps.names.outputs.name }}
+      file: ${{ steps.names.outputs.file }}
+    steps:
+      - id: names
+        env:
+          APP: ${{ inputs.app }}
+          DISPLAY_NAME: ${{ inputs.display_name }}
+          CHANNEL: ${{ inputs.channel }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          [[ "$APP" =~ ^[a-z0-9-]+$ ]] || { echo "Bad app $APP"; exit 1; }
+          [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.]+)?$ ]] || { echo "Bad version $VERSION"; exit 1; }
+          case "$CHANNEL" in
+            prod) suffix=""; label="" ;;
+            dev) suffix="-dev"; label=" Dev" ;;
+            *) echo "Bad channel $CHANNEL"; exit 1 ;;
+          esac
+          {
+            echo "environment=$APP$suffix"
+            echo "tag=$APP$suffix-v$VERSION"
+            echo "name=$DISPLAY_NAME$label v$VERSION"
+            echo "file=$APP$suffix.json"
+          } >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: prepare
+    environment: ${{ needs.prepare.outputs.environment }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: ${{ fromJSON(inputs.platforms) }}
+    runs-on: ${{ matrix.platform == 'macos' && 'macos-latest' || 'windows-latest' }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.source_path }}
+    env:
+      RUSTFLAGS: -A warnings
+      CHANNEL: ${{ inputs.channel }}
+      VERSION: ${{ inputs.version }}
+      DEV_CONFIG: ${{ inputs.dev_config }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.SOURCE_REPO }}
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.SOURCE_TOKEN }}
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+          cache-dependency-path: ${{ inputs.source_path }}/pnpm-lock.yaml
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.platform == 'macos' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ inputs.app }}
+          workspaces: "${{ inputs.source_path }}/src-tauri -> target"
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Write the channel's config
+        run: |
+          node -e '
+            const fs = require("fs");
+            const { CHANNEL, VERSION, DEV_CONFIG } = process.env;
+            const base = JSON.parse(fs.readFileSync("src-tauri/tauri.conf.json", "utf8"));
+            if (CHANNEL === "prod" && base.version !== VERSION) {
+              throw new Error(`version ${VERSION} is not tauri.conf.json version ${base.version}`);
+            }
+            const extra = CHANNEL === "dev" ? JSON.parse(fs.readFileSync(DEV_CONFIG, "utf8")) : {};
+            fs.writeFileSync("src-tauri/tauri.ci.conf.json", JSON.stringify({ ...extra, version: VERSION }));
+          '
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.SIGNING_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+        with:
+          projectPath: ${{ inputs.source_path }}
+          tagName: ${{ needs.prepare.outputs.tag }}
+          releaseName: ${{ needs.prepare.outputs.name }}
+          releaseBody: ${{ inputs.notes }}
+          releaseDraft: false
+          prerelease: ${{ inputs.channel == 'dev' }}
+          args: ${{ matrix.platform == 'macos' && '--target universal-apple-darwin' || '--bundles nsis' }} --config src-tauri/tauri.ci.conf.json
+
+  publish:
+    needs: [prepare, build]
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ needs.prepare.outputs.tag }}
+      FILE: ${{ needs.prepare.outputs.file }}
+    steps:
+      - run: |
+          gh release download "$TAG" -R "$GITHUB_REPOSITORY" -p latest.json -O "$FILE"
+          gh release upload updates "$FILE" -R "$GITHUB_REPOSITORY" --clobber
