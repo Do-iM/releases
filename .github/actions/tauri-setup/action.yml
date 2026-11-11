@@ -1,0 +1,59 @@
+# PC(_tauri-pc.yml)와 모바일(_tauri-mobile.yml) 빌드가 함께 쓰는 준비 단계:
+# 비공개 소스 받기 → pnpm·Node → Rust(+타깃) → Rust 캐시 → pnpm install.
+#
+# 빌드 작업은 작업 폴더에 소스 저장소를 받으므로 ./.github/actions/... 로는 이 파일을 못 찾는다.
+# 그래서 부르는 쪽은 Do-iM/releases/.github/actions/tauri-setup@main 으로 부른다 (공개 저장소라 토큰 없이 받는다).
+# composite action 은 secrets 를 직접 읽지 못하므로 토큰은 입력으로 받는다.
+name: tauri-setup
+description: 비공개 Tauri 소스를 받고 빌드 도구를 준비한다
+
+inputs:
+  repository:
+    description: 소스 저장소 (vars.TAURI_REPO)
+    required: true
+  ref:
+    description: 빌드할 커밋
+    required: true
+  token:
+    description: 소스 저장소 읽기 토큰 (secrets.SOURCES_TOKEN)
+    required: true
+  source_path:
+    description: 저장소 안에서 앱이 있는 폴더
+    default: "."
+  rust_targets:
+    description: 더 설치할 Rust 타깃 (쉼표로 구분)
+    default: ""
+  cache_key:
+    description: Rust 캐시 이름 (앱·플랫폼마다 다르게)
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        repository: ${{ inputs.repository }}
+        ref: ${{ inputs.ref }}
+        token: ${{ inputs.token }}
+        persist-credentials: false
+
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 12
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+        cache: pnpm
+        cache-dependency-path: ${{ inputs.source_path }}/pnpm-lock.yaml
+
+    - uses: dtolnay/rust-toolchain@stable
+      with:
+        targets: ${{ inputs.rust_targets }}
+    - uses: Swatinem/rust-cache@v2
+      with:
+        key: ${{ inputs.cache_key }}
+        workspaces: "${{ inputs.source_path }}/src-tauri -> target"
+
+    - shell: bash
+      working-directory: ${{ inputs.source_path }}
+      run: pnpm install --frozen-lockfile

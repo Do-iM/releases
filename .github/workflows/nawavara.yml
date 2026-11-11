@@ -1,0 +1,43 @@
+# 비공개 저장소의 nawavara-release.yml 이 태그를 받으면 이 워크플로를 실행한다. 빌드 과정은 공용 _tauri-mobile.yml.
+# 앱 이름과 식별자는 여기에 고정한다 (입력으로 받지 않아 다른 앱 이름으로 잘못 올릴 수 없다).
+name: nawavara
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 빌드할 비공개 저장소의 커밋
+        required: true
+      version:
+        description: 버전 (tauri.conf.json 의 version 과 같아야 한다)
+        required: true
+      platforms:
+        description: 빌드할 플랫폼 목록
+        default: '["android", "ios"]'
+        required: true
+      notes:
+        description: 바뀐 점 (Play 테스트 버전의 출시 노트)
+        required: true
+      aab_only:
+        description: Play 에 올리지 않고 AAB 를 산출물로 1일 보관 (Play Console 에 처음 손으로 올릴 때만)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency: nawavara
+
+jobs:
+  release:
+    uses: ./.github/workflows/_tauri-mobile.yml
+    with:
+      app: nawavara
+      package: me.dee3.nawavara
+      source_path: "."
+      ref: ${{ inputs.ref }}
+      version: ${{ inputs.version }}
+      platforms: ${{ inputs.platforms }}
+      notes: ${{ inputs.notes }}
+      aab_only: ${{ inputs.aab_only }}
+    secrets: inherit

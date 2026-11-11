@@ -1,4 +1,6 @@
-name: tauri-release
+# PC(macOS, Windows) 빌드 → 공개 릴리스 + 앱 자체 업데이트 파일(updates 릴리스).
+# 앱별 워크플로(screenchat.yml 등)가 불러서만 쓴다. 준비 단계는 공용 tauri-setup.
+name: tauri-pc-release
 
 on:
   workflow_call:
@@ -84,31 +86,14 @@ jobs:
       VERSION: ${{ inputs.version }}
       DEV_CONFIG: ${{ inputs.dev_config }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: Do-iM/releases/.github/actions/tauri-setup@main
         with:
           repository: ${{ vars.TAURI_REPO }}
           ref: ${{ inputs.ref }}
           token: ${{ secrets.SOURCES_TOKEN }}
-          persist-credentials: false
-
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 12
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: pnpm
-          cache-dependency-path: ${{ inputs.source_path }}/pnpm-lock.yaml
-
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.platform == 'macos' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
-      - uses: Swatinem/rust-cache@v2
-        with:
-          key: ${{ inputs.app }}
-          workspaces: "${{ inputs.source_path }}/src-tauri -> target"
-
-      - run: pnpm install --frozen-lockfile
+          source_path: ${{ inputs.source_path }}
+          rust_targets: ${{ matrix.platform == 'macos' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+          cache_key: ${{ inputs.app }}
 
       - name: Write the channel's config
         run: |

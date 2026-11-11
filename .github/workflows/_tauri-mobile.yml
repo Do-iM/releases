@@ -1,0 +1,163 @@
+# 모바일 테스트 빌드: Android 는 AAB 를 Play 내부 테스트 트랙에, iOS 는 IPA 를 TestFlight 에 올린다.
+# 설치 파일은 공개 릴리스에 올리지 않는다. 예외: aab_only 를 켜면(첫 빌드용) Play 에 올리지 않고 AAB 를 산출물로 1일만 보관한다.
+# 앱별 워크플로(nawavara.yml 등)가 불러서만 쓴다. 준비 단계는 공용 tauri-setup.
+#
+# Secrets (환경 <app> 또는 저장소. 같은 이름이면 환경이 앞선다):
+#   ANDROID_KEYSTORE(업로드 키 jks 의 base64), ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_PASSWORD,
+#   PLAY_SERVICE_ACCOUNT_JSON, APPLE_API_KEY(.p8 내용), APPLE_API_KEY_ID, APPLE_API_ISSUER, APPLE_TEAM_ID
+# Variables: PLAY_STATUS (Play 에서 첫 출시 전에는 draft)
+name: tauri-mobile-release
+
+on:
+  workflow_call:
+    inputs:
+      app:
+        description: 앱 이름. 환경 이름과 캐시 이름이 된다
+        type: string
+        required: true
+      package:
+        description: 앱 식별자 (Android 패키지, iOS 번들 ID). tauri.conf.json 의 identifier 와 같아야 한다
+        type: string
+        required: true
+      source_path:
+        description: 소스 저장소 안에서 앱이 있는 폴더
+        type: string
+        default: "."
+      key_alias:
+        description: Android 업로드 키의 별칭 (비밀 아님)
+        type: string
+        default: upload
+      ref:
+        type: string
+        required: true
+      version:
+        type: string
+        required: true
+      platforms:
+        type: string
+        default: '["android", "ios"]'
+      notes:
+        type: string
+        required: true
+      aab_only:
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    environment: ${{ inputs.app }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: ${{ fromJSON(inputs.platforms) }}
+    runs-on: ${{ matrix.platform == 'ios' && 'macos-latest' || 'ubuntu-latest' }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.source_path }}
+    env:
+      RUSTFLAGS: -A warnings
+      APP: ${{ inputs.app }}
+      PACKAGE: ${{ inputs.package }}
+      VERSION: ${{ inputs.version }}
+      NOTES: ${{ inputs.notes }}
+      RUN_NUMBER: ${{ github.run_number }}
+      RUN_ATTEMPT: ${{ github.run_attempt }}
+    steps:
+      - uses: Do-iM/releases/.github/actions/tauri-setup@main
+        with:
+          repository: ${{ vars.TAURI_REPO }}
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.SOURCES_TOKEN }}
+          source_path: ${{ inputs.source_path }}
+          rust_targets: ${{ matrix.platform == 'ios' && 'aarch64-apple-ios' || 'aarch64-linux-android,armv7-linux-androideabi' }}
+          cache_key: ${{ inputs.app }}-${{ matrix.platform }}
+
+      # 스토어는 올릴 때마다 빌드 번호가 커져야 한다: 10000 + 실행 번호 × 10 + 시도 횟수 (Re-run 해도 커진다).
+      # 10000 은 로컬에서 만든 AAB 의 번호(버전에서 계산, 0.1.0 → 1000)보다 크게 하려는 값이다.
+      - name: Check the source and write the build config
+        run: |
+          [[ "$APP" =~ ^[a-z0-9-]+$ ]] || { echo "Bad app $APP"; exit 1; }
+          echo "BUILD_NUMBER=$((10000 + RUN_NUMBER * 10 + RUN_ATTEMPT))" >> "$GITHUB_ENV"
+          node -e '
+            const fs = require("fs");
+            const { VERSION, PACKAGE, RUN_NUMBER, RUN_ATTEMPT } = process.env;
+            const base = JSON.parse(fs.readFileSync("src-tauri/tauri.conf.json", "utf8"));
+            if (base.version !== VERSION) throw new Error(`version ${VERSION} is not tauri.conf.json version ${base.version}`);
+            if (base.identifier !== PACKAGE) throw new Error(`package ${PACKAGE} is not tauri.conf.json identifier ${base.identifier}`);
+            const n = 10000 + Number(RUN_NUMBER) * 10 + Number(RUN_ATTEMPT);
+            fs.writeFileSync("src-tauri/tauri.ci.conf.json", JSON.stringify({
+              bundle: { android: { versionCode: n }, iOS: { bundleVersion: String(n) } },
+            }));
+          '
+
+      # ---------- Android ----------
+      - if: matrix.platform == 'android'
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - if: matrix.platform == 'android'
+        name: Build AAB
+        env:
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ inputs.key_alias }}
+        run: |
+          export NDK_HOME="$ANDROID_NDK_LATEST_HOME"
+          echo "$ANDROID_KEYSTORE" | base64 --decode > "$RUNNER_TEMP/upload.jks"
+          {
+            echo "storeFile=$RUNNER_TEMP/upload.jks"
+            echo "storePassword=$ANDROID_KEYSTORE_PASSWORD"
+            echo "keyAlias=$ANDROID_KEY_ALIAS"
+            echo "keyPassword=$ANDROID_KEY_PASSWORD"
+          } > src-tauri/gen/android/keystore.properties
+          pnpm tauri android build --aab --target aarch64 armv7 --config src-tauri/tauri.ci.conf.json
+          aab=$(find "$PWD/src-tauri/gen/android/app/build/outputs/bundle" -name '*.aab' | head -1)
+          [ -n "$aab" ] || { echo "No AAB"; exit 1; }
+          echo "AAB=$aab" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/whatsnew"
+          node -e 'process.stdout.write([...process.env.NOTES].slice(0, 500).join(""))' > "$RUNNER_TEMP/whatsnew/whatsnew-ko-KR"
+
+      # 첫 빌드용: Play 는 AAB 를 한 번도 받지 않은 앱을 API 로 찾지 못한다. 이 파일을 받아 콘솔에 손으로 올린다.
+      # 공개 저장소의 산출물은 GitHub 에 로그인한 누구나 받을 수 있으므로 하루만 둔다. 받은 뒤 바로 지워도 된다.
+      - if: matrix.platform == 'android' && inputs.aab_only
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.app }}-${{ inputs.version }}-${{ env.BUILD_NUMBER }}-aab
+          path: ${{ env.AAB }}
+          retention-days: 1
+          if-no-files-found: error
+
+      - if: matrix.platform == 'android' && !inputs.aab_only
+        name: Upload to Play internal testing
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: ${{ inputs.package }}
+          releaseFiles: ${{ env.AAB }}
+          releaseName: ${{ inputs.version }} (${{ env.BUILD_NUMBER }})
+          track: internal
+          # 앱이 아직 한 번도 출시(검토 통과)되지 않았으면 Play 가 draft 만 받는다. 그때는 환경 변수 PLAY_STATUS 를 draft 로.
+          status: ${{ vars.PLAY_STATUS || 'completed' }}
+          whatsNewDirectory: ${{ runner.temp }}/whatsnew
+
+      # ---------- iOS ----------
+      - if: matrix.platform == 'ios'
+        name: Build IPA and upload to TestFlight
+        env:
+          APPLE_DEVELOPMENT_TEAM: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+          APPLE_API_KEY: ${{ secrets.APPLE_API_KEY_ID }}
+          APPLE_API_KEY_CONTENT: ${{ secrets.APPLE_API_KEY }}
+        run: |
+          # App Store Connect API 키로 서명 인증서와 프로필을 자동으로 받는다 (Xcode 자동 서명).
+          mkdir -p ~/.appstoreconnect/private_keys
+          export APPLE_API_KEY_PATH=~/.appstoreconnect/private_keys/AuthKey_$APPLE_API_KEY.p8
+          printf '%s' "$APPLE_API_KEY_CONTENT" > "$APPLE_API_KEY_PATH"
+          pnpm tauri ios build --export-method app-store-connect --config src-tauri/tauri.ci.conf.json
+          ipa=$(find src-tauri/gen/apple/build -name '*.ipa' | head -1)
+          [ -n "$ipa" ] || { echo "No IPA"; exit 1; }
+          xcrun altool --upload-app -t ios -f "$ipa" --apiKey "$APPLE_API_KEY" --apiIssuer "$APPLE_API_ISSUER"
