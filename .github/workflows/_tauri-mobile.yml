@@ -1,18 +1,17 @@
 # 모바일 테스트 빌드: Android 는 AAB 를 Play 내부 테스트 트랙에, iOS 는 IPA 를 TestFlight 에 올린다.
-# 설치 파일은 공개 릴리스에 올리지 않는다. 예외: aab_only 를 켜면(첫 빌드용) Play 에 올리지 않고 AAB 를 산출물로 1일만 보관한다.
+# 설치 파일은 공개 릴리스에 올리지 않는다. 예외: Play 업로드가 실패하면(첫 빌드 등) AAB 를 산출물로 1일만 보관하고 실패로 끝낸다.
 # 앱별 워크플로(nawavara.yml 등)가 불러서만 쓴다. 준비 단계는 공용 tauri-setup.
 #
-# Secrets (환경 <app> 또는 저장소. 같은 이름이면 환경이 앞선다):
+# 환경(environment)을 쓰지 않는다. Secrets 는 저장소 Secrets 에서 읽는다 (여러 앱이 같은 키를 함께 쓴다):
 #   ANDROID_KEYSTORE(업로드 키 jks 의 base64), ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_PASSWORD,
 #   PLAY_SERVICE_ACCOUNT_JSON, APPLE_API_KEY(.p8 내용), APPLE_API_KEY_ID, APPLE_API_ISSUER, APPLE_TEAM_ID
-# Variables: PLAY_STATUS (Play 에서 첫 출시 전에는 draft)
 name: tauri-mobile-release
 
 on:
   workflow_call:
     inputs:
       app:
-        description: 앱 이름. 환경 이름과 캐시 이름이 된다
+        description: 앱 이름. 캐시 이름과 산출물 이름이 된다
         type: string
         required: true
       package:
@@ -39,13 +38,9 @@ on:
       notes:
         type: string
         required: true
-      aab_only:
-        type: boolean
-        default: false
 
 jobs:
   build:
-    environment: ${{ inputs.app }}
     strategy:
       fail-fast: false
       matrix:
@@ -121,18 +116,10 @@ jobs:
           mkdir -p "$RUNNER_TEMP/whatsnew"
           node -e 'process.stdout.write([...process.env.NOTES].slice(0, 500).join(""))' > "$RUNNER_TEMP/whatsnew/whatsnew-ko-KR"
 
-      # 첫 빌드용: Play 는 AAB 를 한 번도 받지 않은 앱을 API 로 찾지 못한다. 이 파일을 받아 콘솔에 손으로 올린다.
-      # 공개 저장소의 산출물은 GitHub 에 로그인한 누구나 받을 수 있으므로 하루만 둔다. 받은 뒤 바로 지워도 된다.
-      - if: matrix.platform == 'android' && inputs.aab_only
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ inputs.app }}-${{ inputs.version }}-${{ env.BUILD_NUMBER }}-aab
-          path: ${{ env.AAB }}
-          retention-days: 1
-          if-no-files-found: error
-
-      - if: matrix.platform == 'android' && !inputs.aab_only
+      - if: matrix.platform == 'android'
+        id: play
         name: Upload to Play internal testing
+        continue-on-error: true
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
@@ -140,9 +127,25 @@ jobs:
           releaseFiles: ${{ env.AAB }}
           releaseName: ${{ inputs.version }} (${{ env.BUILD_NUMBER }})
           track: internal
-          # 앱이 아직 한 번도 출시(검토 통과)되지 않았으면 Play 가 draft 만 받는다. 그때는 환경 변수 PLAY_STATUS 를 draft 로.
-          status: ${{ vars.PLAY_STATUS || 'completed' }}
+          status: completed
           whatsNewDirectory: ${{ runner.temp }}/whatsnew
+
+      # Play 업로드가 실패하면 AAB 를 받아 콘솔에 손으로 올릴 수 있게 남긴다.
+      # 흔한 경우: 첫 빌드(Play 는 AAB 를 한 번도 받지 않은 앱을 API 로 찾지 못한다), 아직 출시된 적 없는 앱(API 는 draft 만 만들 수 있다).
+      # 공개 저장소의 산출물은 GitHub 에 로그인한 누구나 받을 수 있으므로 하루만 둔다. 받은 뒤 바로 지워도 된다.
+      - if: matrix.platform == 'android' && steps.play.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.app }}-${{ inputs.version }}-${{ env.BUILD_NUMBER }}-aab
+          path: ${{ env.AAB }}
+          retention-days: 1
+          if-no-files-found: error
+
+      - if: matrix.platform == 'android' && steps.play.outcome == 'failure'
+        name: Play upload failed
+        run: |
+          echo "::error title=Play 업로드 실패::위 Upload to Play internal testing 단계의 오류를 확인한다. 첫 빌드라 그렇다면 이 실행의 Artifacts 에서 AAB 를 받아 Play Console 내부 테스트에 손으로 올리고 출시한다. 그 뒤부터는 CI 가 올린다."
+          exit 1
 
       # ---------- iOS ----------
       - if: matrix.platform == 'ios'
