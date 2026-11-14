@@ -1,42 +1,44 @@
-# PC(macOS, Windows) 빌드 → 공개 릴리스 + 앱 자체 업데이트 파일(updates 릴리스).
-# 앱별 워크플로(screenchat.yml 등)가 불러서만 쓴다. 준비 단계는 공용 tauri-setup.
-name: tauri-pc-release
+# PC 앱(macOS, Windows) 배포 (여러 앱 공용) → 공개 릴리스 + 앱 자체 업데이트 파일(updates 릴리스).
+# 비공개 저장소 각 앱 브랜치의 pc-release.yml 이 태그를 받으면 이 워크플로를 실행한다. 앱마다 파일을 따로 만들지 않는다.
+# 앱 이름은 태그 앞부분(영문 소문자·숫자, `-` 없음)이고, 받은 소스의 tauri.conf.json identifier 마지막 부분과 같은지 확인한다. 준비 단계는 공용 tauri-setup.
+# 이 저장소의 릴리스 태그(<앱>-v…, <앱>-dev-v…)와 업데이트 파일(<앱>.json, <앱>-dev.json) 이름은 설치된 앱이 업데이트를 찾는 주소라 바꾸지 않는다.
+# 앱마다 이 저장소에 환경(Environments) `<앱>`, `<앱>-dev` 가 있고 거기에 업데이트 서명 키(SIGNING_KEY, SIGNING_KEY_PASSWORD)가 있어야 한다.
+name: tauri-pc
+run-name: ${{ inputs.app }} ${{ inputs.channel }} ${{ inputs.version }} ${{ inputs.platforms }}
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       app:
-        description: 앱 이름. 환경, 태그, 업데이트 파일 이름이 된다
-        type: string
+        description: 앱 이름 (예 screenchat). tauri.conf.json identifier 의 마지막 부분
         required: true
       display_name:
-        description: 릴리스 이름에 쓰는 앱 이름
-        type: string
+        description: 릴리스 이름에 쓰는 앱 이름 (tauri.conf.json 의 productName)
         required: true
-      source_path:
-        description: 소스 저장소 안에서 앱이 있는 폴더
-        type: string
-        default: "."
-      dev_config:
-        description: dev 채널에서 덧붙이는 설정 (source_path 기준)
-        type: string
-        default: src-tauri/tauri.dev.conf.json
-      platforms:
-        description: 빌드할 플랫폼 목록
-        type: string
-        default: '["macos", "windows"]'
       ref:
-        type: string
+        description: 빌드할 비공개 저장소의 커밋
         required: true
       channel:
-        type: string
+        description: prod(외부 배포) 또는 dev(내부 개발)
+        type: choice
+        options: [dev, prod]
         required: true
       version:
-        type: string
+        description: 버전 (prod 는 tauri.conf.json 의 version 과 같아야 한다)
+        required: true
+      platforms:
+        description: 빌드할 플랫폼 목록
+        default: '["macos", "windows"]'
         required: true
       notes:
-        type: string
+        description: 바뀐 점 (앱의 업데이트 화면에 보인다)
         required: true
+
+permissions:
+  contents: write
+
+# 같은 앱·채널은 한 번에 하나씩 (같은 릴리스와 업데이트 파일을 동시에 고치지 않게).
+concurrency: tauri-pc-${{ inputs.app }}-${{ inputs.channel }}
 
 jobs:
   prepare:
@@ -54,7 +56,7 @@ jobs:
           CHANNEL: ${{ inputs.channel }}
           VERSION: ${{ inputs.version }}
         run: |
-          [[ "$APP" =~ ^[a-z0-9-]+$ ]] || { echo "Bad app $APP"; exit 1; }
+          [[ "$APP" =~ ^[a-z0-9]+$ ]] || { echo "Bad app $APP (영문 소문자·숫자만, - 없이)"; exit 1; }
           [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.]+)?$ ]] || { echo "Bad version $VERSION"; exit 1; }
           case "$CHANNEL" in
             prod) suffix=""; label="" ;;
@@ -79,19 +81,20 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ${{ inputs.source_path }}
+        working-directory: .
     env:
       RUSTFLAGS: -A warnings
+      APP: ${{ inputs.app }}
       CHANNEL: ${{ inputs.channel }}
       VERSION: ${{ inputs.version }}
-      DEV_CONFIG: ${{ inputs.dev_config }}
+      DEV_CONFIG: src-tauri/tauri.dev.conf.json
     steps:
       - uses: Do-iM/releases/.github/actions/tauri-setup@main
         with:
           repository: ${{ vars.TAURI_REPO }}
           ref: ${{ inputs.ref }}
           token: ${{ secrets.SOURCES_TOKEN }}
-          source_path: ${{ inputs.source_path }}
+          source_path: .
           rust_targets: ${{ matrix.platform == 'macos' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
           cache_key: ${{ inputs.app }}
 
@@ -99,8 +102,12 @@ jobs:
         run: |
           node -e '
             const fs = require("fs");
-            const { CHANNEL, VERSION, DEV_CONFIG } = process.env;
+            const { APP, CHANNEL, VERSION, DEV_CONFIG } = process.env;
             const base = JSON.parse(fs.readFileSync("src-tauri/tauri.conf.json", "utf8"));
+            // 앱 이름 = 식별자의 마지막 부분 (태그를 잘못 쳐서 다른 앱의 릴리스·업데이트 파일에 올라가지 않게).
+            if (base.identifier.split(".").pop() !== APP) {
+              throw new Error(`app ${APP} is not the last part of identifier ${base.identifier}`);
+            }
             if (CHANNEL === "prod" && base.version !== VERSION) {
               throw new Error(`version ${VERSION} is not tauri.conf.json version ${base.version}`);
             }
@@ -114,7 +121,7 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.SIGNING_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         with:
-          projectPath: ${{ inputs.source_path }}
+          projectPath: .
           tagName: ${{ needs.prepare.outputs.tag }}
           releaseName: ${{ needs.prepare.outputs.name }}
           releaseBody: ${{ inputs.notes }}

@@ -1,4 +1,4 @@
-# PC(_tauri-pc.yml)와 모바일(_tauri-mobile.yml) 빌드가 함께 쓰는 준비 단계:
+# PC(tauri-pc.yml)와 모바일(tauri-mobile.yml) 빌드가 함께 쓰는 준비 단계:
 # 비공개 소스 받기 → pnpm·Node → Rust(+타깃) → Rust 캐시 → pnpm install.
 #
 # 빌드 작업은 작업 폴더에 소스 저장소를 받으므로 ./.github/actions/... 로는 이 파일을 못 찾는다.
