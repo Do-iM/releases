@@ -19,7 +19,7 @@ on:
         description: 버전 X.Y.Z (tauri.conf.json 의 version 과 같아야 한다, 각 숫자 0~99)
         required: true
       build:
-        description: 태그 끝의 -숫자 D (0~99). 빌드 번호 = X*1000000 + Y*10000 + Z*100 + D
+        description: 태그 끝의 -숫자 B (0~99). 빌드 번호 = X*1000000 + Y*10000 + Z*100 + B
         required: true
       platforms:
         description: 빌드할 플랫폼 목록
@@ -62,7 +62,7 @@ jobs:
           rust_targets: ${{ matrix.platform == 'ios' && 'aarch64-apple-ios' || 'aarch64-linux-android,armv7-linux-androideabi' }}
           cache_key: ${{ inputs.app }}-${{ matrix.platform }}
 
-      # 빌드 번호 = X*1000000 + Y*10000 + Z*100 + D (태그 X.Y.Z-D, 각 숫자 0~99).
+      # 빌드 번호 = X*1000000 + Y*10000 + Z*100 + B (태그 X.Y.Z-B, 각 숫자 0~99).
       # 로컬 빌드(Tauri 기본 X*1000000 + Y*1000 + Z)보다 늘 크거나 같다.
       - name: Check the source and write the build config
         run: |
@@ -77,10 +77,10 @@ jobs:
             // 자리가 겹치지 않게 각 숫자는 0~99 (앞에 0 없이).
             const parts = `${VERSION}.${BUILD}`.split(".");
             if (parts.length !== 4 || !parts.every((p) => /^(0|[1-9][0-9]?)$/.test(p))) {
-              throw new Error(`version ${VERSION} and build ${BUILD} must be X.Y.Z and D with each number 0~99`);
+              throw new Error(`version ${VERSION} and build ${BUILD} must be X.Y.Z and B with each number 0~99`);
             }
-            const [x, y, z, d] = parts.map(Number);
-            const n = x * 1000000 + y * 10000 + z * 100 + d;
+            const [x, y, z, b] = parts.map(Number);
+            const n = x * 1000000 + y * 10000 + z * 100 + b;
             fs.appendFileSync(GITHUB_ENV, `APP_PACKAGE=${base.identifier}\nBUILD_NUMBER=${n}\n`);
             fs.writeFileSync("src-tauri/tauri.ci.conf.json", JSON.stringify({
               bundle: { android: { versionCode: n }, iOS: { bundleVersion: String(n) } },
