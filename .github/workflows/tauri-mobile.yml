@@ -104,12 +104,14 @@ jobs:
         run: |
           export NDK_HOME="$ANDROID_NDK_LATEST_HOME"
           echo "$ANDROID_KEYSTORE" | base64 --decode > "$RUNNER_TEMP/upload.jks"
+          # 앱의 build.gradle.kts 를 고치지 않고 Gradle 의 주입 서명 속성으로 release 를 서명한다.
+          mkdir -p ~/.gradle
           {
-            echo "storeFile=$RUNNER_TEMP/upload.jks"
-            echo "storePassword=$ANDROID_KEYSTORE_PASSWORD"
-            echo "keyAlias=$ANDROID_KEY_ALIAS"
-            echo "keyPassword=$ANDROID_KEY_PASSWORD"
-          } > src-tauri/gen/android/keystore.properties
+            echo "android.injected.signing.store.file=$RUNNER_TEMP/upload.jks"
+            echo "android.injected.signing.store.password=$ANDROID_KEYSTORE_PASSWORD"
+            echo "android.injected.signing.key.alias=$ANDROID_KEY_ALIAS"
+            echo "android.injected.signing.key.password=$ANDROID_KEY_PASSWORD"
+          } >> ~/.gradle/gradle.properties
           pnpm tauri android build --aab --target aarch64 armv7 --config src-tauri/tauri.ci.conf.json
           aab=$(find "$PWD/src-tauri/gen/android/app/build/outputs/bundle" -name '*.aab' | head -1)
           [ -n "$aab" ] || { echo "No AAB"; exit 1; }
