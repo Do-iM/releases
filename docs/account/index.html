@@ -1,0 +1,507 @@
+<!doctype html>
+<!--
+  통합 계정 탈퇴 페이지 (https://apps.dee3.me/account/). 모든 앱이 같이 쓰는 로그인 계정과 모든 앱의 데이터를 지운다.
+  앱의 "통합 계정 탈퇴" 버튼이 이 주소를 연다 (?app=<앱>&lang=<화면 언어>). 앱을 지운 사람도 여기서 지울 수 있다 (App Store·Play 의 계정 삭제 요건).
+  지우는 일은 서버의 공용 Edge Function common-account 가 한다. 요청·응답 모양과 이 페이지가 할 일은
+  비공개 저장소 common 브랜치의 shared/supabase/README.md "계정 삭제"에 있다. 그쪽이 바뀌면 여기도 같이 고친다.
+
+  흐름: 로그인(Google·Apple) → preview(지워질 앱, 이용 중인 구독) → 확인 → delete_account → 끝 (Apple 로 로그인한 계정이면 연결 끊는 법 안내).
+  - 늘 새로 로그인시킨다. 서버가 로그인한 지 15분 안에만 지워 주고, 세션을 브라우저에 남기지 않으려고 저장하지 않는다 (새로 고치면 로그아웃).
+  - Google: Google 로그인 버튼(GIS) → ID 토큰 → signInWithIdToken. Google Cloud 의 웹 클라이언트에 이 페이지의 출처가 "승인된 JavaScript 원본"으로 들어 있어야 한다.
+  - Apple: signInWithOAuth 로 Apple 페이지에 갔다가 이 주소로 돌아온다. Supabase Auth 의 Redirect URLs 에 이 주소가 들어 있어야 한다.
+  - 빌드가 없다. 이 파일 하나가 전부다 (Jekyll 은 머리말이 없는 .html 을 그대로 내보낸다).
+-->
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="referrer" content="no-referrer" />
+    <title>계정 삭제</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f6f6f4;
+        --card: #ffffff;
+        --text: #1b1b1a;
+        --muted: #66655f;
+        --line: #e2e1dc;
+        --danger: #c62f2f;
+        --danger-text: #ffffff;
+        --warn-bg: #fff4d6;
+        --warn-text: #5c4300;
+        --link: #1a5fb4;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #161615;
+          --card: #222220;
+          --text: #ecebe6;
+          --muted: #a3a29b;
+          --line: #3a3936;
+          --danger: #e05252;
+          --danger-text: #1b0d0d;
+          --warn-bg: #3d3212;
+          --warn-text: #f3deA0;
+          --link: #8ab8f0;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+      }
+      main {
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 32px 16px 48px;
+      }
+      .operator {
+        margin: 0 0 4px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      h1 {
+        margin: 0 0 16px;
+        font-size: 26px;
+        line-height: 1.3;
+      }
+      h2 {
+        margin: 24px 0 8px;
+        font-size: 17px;
+      }
+      p {
+        margin: 0 0 12px;
+      }
+      ul {
+        margin: 0 0 12px;
+        padding-left: 20px;
+      }
+      a {
+        color: var(--link);
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .warn {
+        background: var(--warn-bg);
+        color: var(--warn-text);
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin: 0 0 12px;
+      }
+      .warn a {
+        color: inherit;
+      }
+      .error {
+        color: var(--danger);
+        font-weight: 600;
+      }
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin: 16px 0 4px;
+      }
+      button {
+        font: inherit;
+        font-weight: 600;
+        min-height: 44px;
+        padding: 0 20px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        color: var(--text);
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.45;
+        cursor: default;
+      }
+      button.apple {
+        background: #000;
+        color: #fff;
+        border-color: #000;
+        min-width: 240px;
+      }
+      @media (prefers-color-scheme: dark) {
+        button.apple {
+          background: #fff;
+          color: #000;
+          border-color: #fff;
+        }
+      }
+      button.danger {
+        background: var(--danger);
+        color: var(--danger-text);
+        border-color: var(--danger);
+      }
+      label.check {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        margin: 16px 0 0;
+      }
+      label.check input {
+        width: 20px;
+        height: 20px;
+        margin: 3px 0 0;
+        flex: none;
+      }
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js" integrity="sha256-qGftvPsCk3Cu7HIj3WGAtWC2IfvjvGTGWE+wNp0be84=" crossorigin="anonymous"></script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+  </head>
+  <body>
+    <main>
+      <p class="operator" id="operator"></p>
+      <h1 data-t="title"></h1>
+
+      <noscript><p class="card">JavaScript 를 켜야 계정을 삭제할 수 있습니다. / Turn on JavaScript to delete your account.</p></noscript>
+
+      <!-- 1. 로그인 -->
+      <section class="card" id="view-signin" hidden>
+        <p data-t="intro"></p>
+        <p data-t="signinHelp"></p>
+        <p class="error" id="signin-error" hidden></p>
+        <div class="buttons">
+          <div id="google-button"></div>
+          <button type="button" class="apple" id="apple-button" data-t="apple"></button>
+        </div>
+        <p class="muted" data-t="signinNote"></p>
+      </section>
+
+      <!-- 잠깐 기다리는 동안 -->
+      <section class="card" id="view-busy" hidden>
+        <p id="busy-text"></p>
+      </section>
+
+      <!-- 2. 지워질 것 확인 -->
+      <section class="card" id="view-review" hidden>
+        <p class="error" id="review-error" hidden></p>
+        <div class="warn" id="subs" hidden>
+          <p><strong data-t="subsTitle"></strong></p>
+          <p data-t="subsBody"></p>
+          <ul id="subs-list"></ul>
+        </div>
+        <h2 data-t="deletedTitle"></h2>
+        <ul>
+          <li data-t="deletedAccount"></li>
+          <li>
+            <span data-t="deletedApps"></span>
+            <ul id="apps-list"></ul>
+          </li>
+          <li data-t="deletedPurchases"></li>
+        </ul>
+        <h2 data-t="keptTitle"></h2>
+        <ul>
+          <li data-t="keptPlaces"></li>
+          <li data-t="keptReports"></li>
+          <li data-t="keptStore"></li>
+        </ul>
+        <label class="check">
+          <input type="checkbox" id="agree" />
+          <span data-t="agree"></span>
+        </label>
+        <div class="buttons">
+          <button type="button" class="danger" id="delete-button" data-t="delete" disabled></button>
+        </div>
+      </section>
+
+      <!-- 3. 끝 -->
+      <section class="card" id="view-done" hidden>
+        <p><strong data-t="doneTitle"></strong></p>
+        <p data-t="doneBody"></p>
+        <div id="apple-guide" hidden>
+          <h2 data-t="appleGuideTitle"></h2>
+          <p data-t="appleGuideBody"></p>
+          <p><a href="https://support.apple.com/102571" target="_blank" rel="noopener" data-t="appleGuideLink"></a></p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      "use strict";
+
+      // 서버 (Supabase 의 workspace 프로젝트). 공개 키라 페이지에 넣어도 된다.
+      const SUPABASE_URL = "https://jlnipinmsehforldesew.supabase.co";
+      const SUPABASE_KEY = "sb_publishable_IFnxBoSvinGLogMOUgPg3A_f_tCNAS0";
+      // Google 로그인의 웹 클라이언트 ID (앱의 Android 로그인이 쓰는 것과 같다. Supabase 가 이 ID 로 발급된 토큰을 받는다).
+      const GOOGLE_CLIENT_ID = "417631230253-q0eamb31rjuigq6cc8953e1qs1heitsj.apps.googleusercontent.com";
+      // 페이지 위에 보이는 운영자(개발자) 이름. 스토어에 보이는 개발자 이름과 같게 맞춘다.
+      const OPERATOR = "dee3";
+
+      const TEXT = {
+        ko: {
+          title: "계정 삭제",
+          intro: "이 계정으로 쓰던 모든 앱의 데이터와 계정을 삭제합니다. 삭제하면 되돌릴 수 없습니다.",
+          signinHelp: "본인 확인을 위해, 앱에서 쓰던 것과 같은 방법으로 로그인해 주세요.",
+          signinNote: "로그인만으로는 아무것도 지워지지 않습니다. 다음 화면에서 지워지는 것을 확인한 뒤 삭제합니다.",
+          apple: "Apple로 계속하기",
+          loading: "확인하는 중입니다…",
+          deleting: "삭제하는 중입니다. 창을 닫지 말고 기다려 주세요…",
+          subsTitle: "이용 중인 구독이 있습니다",
+          subsBody: "계정을 삭제해도 스토어 결제는 계속됩니다. 구독은 스토어에서 직접 해지해야 합니다.",
+          subsApple: "App Store 구독 관리",
+          subsGoogle: "Google Play 구독 관리",
+          deletedTitle: "삭제되는 것",
+          deletedAccount: "로그인 계정 (다시 로그인하면 새 계정으로 시작합니다)",
+          deletedApps: "아래 앱에 저장된 내 데이터 전부 (프로필, 올린 글과 사진, 기록 등)",
+          deletedPurchases: "구매·구독·광고 보상 기록, 남아 있는 코인 같은 소모성 상품",
+          keptTitle: "남는 것",
+          keptPlaces: "다른 사람과 주고받은 대화나 댓글은, 흐름이 끊기지 않게 내 글이 있던 자리만 작성자와 내용 없이 남을 수 있습니다.",
+          keptReports: "신고 처리 기록은 각 앱의 개인정보 처리방침에 적힌 기간 동안 운영자만 볼 수 있게 보관한 뒤 삭제합니다.",
+          keptStore: "App Store·Google Play 의 결제 내역은 스토어가 보관합니다.",
+          agree: "모든 앱의 데이터와 계정이 삭제되고 되돌릴 수 없다는 것을 확인했습니다.",
+          delete: "계정 삭제",
+          doneTitle: "계정이 삭제되었습니다.",
+          doneBody: "기기에 설치된 앱은 다음에 열 때 자동으로 로그아웃됩니다. 이 창은 닫아도 됩니다.",
+          appleGuideTitle: "Apple 계정에서 앱 연결 끊기",
+          appleGuideBody: "Apple로 로그인한 기록은 Apple 계정에 남아 있습니다. 설정 > 내 이름 > Apple로 로그인에서 앱을 골라 사용을 중단할 수 있습니다.",
+          appleGuideLink: "Apple 지원 문서 보기",
+          errCanceled: "로그인이 취소되었습니다. 다시 시도해 주세요.",
+          errSignin: "로그인하지 못했습니다. 잠시 뒤 다시 시도해 주세요.",
+          errReauth: "로그인한 지 시간이 지나 삭제하지 못했습니다. 다시 로그인해 주세요.",
+          errSession: "로그인이 끝났습니다. 다시 로그인해 주세요.",
+          errApp: "{app}의 데이터를 지우다가 멈췄습니다. 계정은 아직 삭제되지 않았습니다. 다시 눌러 주세요.",
+          errNetwork: "서버에 연결하지 못했습니다. 인터넷 연결을 확인하고 다시 시도해 주세요.",
+          errUnknown: "문제가 생겨 끝내지 못했습니다. 잠시 뒤 다시 시도해 주세요.",
+        },
+        en: {
+          title: "Delete account",
+          intro: "This deletes your account and your data in every app that uses it. This cannot be undone.",
+          signinHelp: "To confirm it is you, sign in the same way you did in the app.",
+          signinNote: "Signing in deletes nothing. You will see what is deleted on the next screen before anything happens.",
+          apple: "Continue with Apple",
+          loading: "Checking…",
+          deleting: "Deleting. Keep this window open…",
+          subsTitle: "You have an active subscription",
+          subsBody: "Deleting your account does not stop store billing. Cancel the subscription in the store.",
+          subsApple: "Manage App Store subscriptions",
+          subsGoogle: "Manage Google Play subscriptions",
+          deletedTitle: "What is deleted",
+          deletedAccount: "Your sign-in account (signing in again starts a new account)",
+          deletedApps: "All of your data in these apps (profile, posts and photos, history, and so on)",
+          deletedPurchases: "Purchase, subscription and ad reward records, and any remaining coins or other consumables",
+          keptTitle: "What remains",
+          keptPlaces: "In conversations and comment threads with other people, an empty placeholder with no author and no content may remain where your message was.",
+          keptReports: "Records of reports are kept for the period stated in each app's privacy policy, visible only to the operator, and then deleted.",
+          keptStore: "App Store and Google Play keep their own payment history.",
+          agree: "I understand that my account and my data in every app will be deleted and that this cannot be undone.",
+          delete: "Delete account",
+          doneTitle: "Your account has been deleted.",
+          doneBody: "Installed apps will sign out the next time you open them. You can close this window.",
+          appleGuideTitle: "Disconnect the app from your Apple Account",
+          appleGuideBody: "Your Apple Account still lists the app under Sign in with Apple. You can stop using it in Settings > your name > Sign in with Apple.",
+          appleGuideLink: "Read the Apple Support article",
+          errCanceled: "Sign-in was canceled. Try again.",
+          errSignin: "Could not sign in. Try again in a moment.",
+          errReauth: "Too much time has passed since you signed in. Sign in again.",
+          errSession: "Your sign-in has ended. Sign in again.",
+          errApp: "Deleting the data of {app} stopped partway. Your account has not been deleted yet. Press the button again.",
+          errNetwork: "Could not reach the server. Check your connection and try again.",
+          errUnknown: "Something went wrong. Try again in a moment.",
+        },
+      };
+
+      const $ = (id) => document.getElementById(id);
+
+      /** sessionStorage 는 막혀 있을 수 있다 (개인정보 보호 모드 등). 없어도 페이지는 동작한다. */
+      const stash = {
+        get(key) {
+          try {
+            return sessionStorage.getItem(key);
+          } catch {
+            return null;
+          }
+        },
+        set(key, value) {
+          try {
+            sessionStorage.setItem(key, value);
+          } catch {}
+        },
+      };
+
+      // 화면 언어: 주소의 lang (앱이 붙여 준다. "ko-KR" 꼴) → Apple 로그인에 다녀오기 전에 적어 둔 것 → 브라우저 언어. 한국어가 아니면 영어.
+      const query = new URLSearchParams(location.search);
+      const lang = (query.get("lang") || stash.get("account.lang") || navigator.language || "en").toLowerCase().startsWith("ko") ? "ko" : "en";
+      const t = TEXT[lang];
+      document.documentElement.lang = lang;
+      document.title = t.title;
+      $("operator").textContent = OPERATOR;
+      for (const el of document.querySelectorAll("[data-t]")) el.textContent = t[el.dataset.t];
+
+      /** 화면 하나만 보인다. */
+      function show(view, busyText) {
+        for (const id of ["signin", "busy", "review", "done"]) $("view-" + id).hidden = id !== view;
+        if (view === "busy") $("busy-text").textContent = busyText;
+      }
+      function setError(id, message) {
+        $(id).textContent = message ?? "";
+        $(id).hidden = !message;
+      }
+
+      // 세션은 메모리에만 둔다 (persistSession: false). Apple 로그인은 주소의 # 뒤로 토큰을 받는다 (implicit):
+      //   코드 교환(pkce)은 다녀오는 동안 값을 브라우저에 저장해야 해서 쓰지 않는다.
+      const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+        auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: true, flowType: "implicit" },
+      });
+
+      /** 지금 로그인의 access token. 서버가 로그인한 때를 여기서 읽으므로 갱신하지 않고 받은 그대로 쓴다. */
+      let token = null;
+      /** preview 가 알려 준 로그인 수단. 계정을 지운 뒤에는 물을 수 없어서 미리 받아 둔다. */
+      let providers = [];
+      /** preview 가 알려 준 앱 (app → 이름) */
+      let appNames = new Map();
+
+      /** common-account 를 부른다. 답 본문({ ok, … })을 그대로 돌려준다. 서버에 닿지 못하면 { ok: false, error: "network" }. */
+      async function call(body) {
+        try {
+          const res = await fetch(SUPABASE_URL + "/functions/v1/common-account", {
+            method: "POST",
+            headers: { Authorization: "Bearer " + token, apikey: SUPABASE_KEY, "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          const answer = await res.json().catch(() => null);
+          if (answer && typeof answer.ok === "boolean") return answer;
+          return { ok: false, error: "unknown" };
+        } catch {
+          return { ok: false, error: "network" };
+        }
+      }
+
+      /** 로그인 화면으로 (처음, 그리고 다시 로그인해야 할 때). */
+      function toSignIn(message) {
+        token = null;
+        setError("signin-error", message);
+        show("signin");
+        setupGoogle();
+      }
+
+      // ── Google: 버튼(GIS)이 ID 토큰을 준다. nonce 는 원래 값을 Supabase 에, SHA-256 한 값을 Google 에 준다 (앱의 로그인과 같다).
+      let googleNonce = null;
+      async function setupGoogle() {
+        if (!window.google?.accounts?.id) return; // 아직 못 읽었으면 읽은 뒤(onGoogleLibraryLoad)에 다시 불린다
+        const raw = Array.from(crypto.getRandomValues(new Uint8Array(32)), (b) => b.toString(16).padStart(2, "0")).join("");
+        const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(raw));
+        const hashed = Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
+        googleNonce = raw;
+        google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, nonce: hashed, callback: onGoogleCredential, auto_select: false });
+        $("google-button").replaceChildren();
+        google.accounts.id.renderButton($("google-button"), { theme: "outline", size: "large", text: "continue_with", locale: lang, width: 240 });
+      }
+      window.onGoogleLibraryLoad = setupGoogle;
+
+      async function onGoogleCredential(response) {
+        const nonce = googleNonce;
+        googleNonce = null; // 한 번만 쓴다
+        show("busy", t.loading);
+        const { data, error } = await sb.auth.signInWithIdToken({ provider: "google", token: response.credential, nonce });
+        if (error || !data.session) return toSignIn(t.errSignin);
+        await review(data.session);
+      }
+
+      // ── Apple: Apple 페이지에 갔다가 이 주소로 돌아온다. 돌아올 주소에는 붙은 것이 없어야 허용 목록과 맞으므로, 화면 언어는 따로 적어 둔다.
+      $("apple-button").addEventListener("click", async () => {
+        stash.set("account.lang", lang);
+        setError("signin-error");
+        const { error } = await sb.auth.signInWithOAuth({ provider: "apple", options: { redirectTo: location.origin + location.pathname } });
+        if (error) setError("signin-error", t.errSignin);
+      });
+
+      /** 로그인한 뒤: 지워질 앱과 이용 중인 구독을 받아 보여 준다. */
+      async function review(session) {
+        token = session.access_token;
+        show("busy", t.loading);
+        const answer = await call({ action: "preview" });
+        if (!answer.ok) return toSignIn(answer.error === "network" ? t.errNetwork : answer.error === "unauthorized" ? t.errSession : t.errUnknown);
+        providers = Array.isArray(answer.providers) ? answer.providers : [];
+        appNames = new Map((answer.apps ?? []).map((a) => [a.app, a.name]));
+
+        $("apps-list").replaceChildren(
+          ...[...appNames.values()].map((name) => {
+            const li = document.createElement("li");
+            li.textContent = name;
+            return li;
+          }),
+        );
+
+        const subs = answer.subscriptions ?? [];
+        $("subs").hidden = subs.length === 0;
+        $("subs-list").replaceChildren(
+          ...subs.map((s) => {
+            const apple = s.platform === "ios";
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.href = apple ? "https://apps.apple.com/account/subscriptions" : "https://play.google.com/store/account/subscriptions";
+            a.target = "_blank";
+            a.rel = "noopener";
+            a.textContent = apple ? t.subsApple : t.subsGoogle;
+            li.append(s.name + " · ", a);
+            return li;
+          }),
+        );
+
+        $("agree").checked = false;
+        $("delete-button").disabled = true;
+        setError("review-error");
+        show("review");
+      }
+
+      $("agree").addEventListener("change", () => {
+        $("delete-button").disabled = !$("agree").checked;
+      });
+
+      $("delete-button").addEventListener("click", async () => {
+        if (!$("agree").checked || !token) return;
+        show("busy", t.deleting);
+        const answer = await call({ action: "delete_account" });
+        if (answer.ok) {
+          token = null;
+          $("apple-guide").hidden = !providers.includes("apple");
+          return show("done");
+        }
+        // 다시 로그인해야 하는 것은 로그인 화면으로, 나머지는 확인 화면에 남아 다시 누를 수 있게 한다 (app_failed 는 다시 부르면 이어서 지운다).
+        if (answer.error === "reauth_required") return toSignIn(t.errReauth);
+        if (answer.error === "unauthorized") return toSignIn(t.errSession);
+        const message =
+          answer.error === "app_failed"
+            ? t.errApp.replace("{app}", appNames.get(answer.app) ?? answer.app ?? "")
+            : answer.error === "network"
+              ? t.errNetwork
+              : t.errUnknown;
+        setError("review-error", message);
+        show("review");
+      });
+
+      // ── 시작: Apple 로그인에서 돌아온 것이면 주소에 토큰(또는 오류)이 있다. getSession 은 그것을 다 읽은 뒤에 답한다.
+      (async () => {
+        const back = new URLSearchParams(location.hash.slice(1) || location.search);
+        const failed = back.get("error");
+        show("busy", t.loading);
+        const { data } = await sb.auth.getSession();
+        // 토큰·오류가 주소에 남지 않게 지운다 (뒤로 가기, 주소 복사).
+        if (location.hash || failed) history.replaceState(null, "", location.pathname);
+        if (data.session) return review(data.session);
+        toSignIn(failed ? (failed === "access_denied" ? t.errCanceled : t.errSignin) : undefined);
+      })();
+    </script>
+  </body>
+</html>
