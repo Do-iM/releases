@@ -13,3 +13,9 @@ title: 약관과 정책
 - [이용약관](nawavara/terms)
 - [개인정보 처리방침](nawavara/privacy)
 - [위치기반서비스 이용약관](nawavara/location)
+
+### English
+
+- [Terms of Service](nawavara/en/terms)
+- [Privacy Policy](nawavara/en/privacy)
+- [Location-Based Services Terms](nawavara/en/location)
