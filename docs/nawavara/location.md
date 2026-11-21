@@ -1,92 +1,93 @@
 ---
-title: 나와바라 위치기반서비스 이용약관
+title: Nawavara Location-Based Services Terms
+lang: en
 ---
 
-# 나와바라 위치기반서비스 이용약관
+# Nawavara Location-Based Services Terms
 
-- 시행일: 2026년 11월 21일
-- 버전: 1.0
+- Effective date: November 21, 2026
+- Version: 1.0
 
-[English](en/location)
+This is an English translation of the Korean original ([한국어](ko/location)). If the two differ, the Korean version prevails.
 
-## 제1조 (목적)
+## Article 1 (Purpose)
 
-이 약관은 DDD(이하 "운영자")이 나와바라(이하 "서비스")에서 제공하는 위치기반서비스에 관해 운영자와 이용자의 권리, 의무, 책임을 정합니다.
+These terms set out the rights, obligations, and responsibilities of DDD (the "Operator") and users regarding the location-based services the Operator provides in Nawavara (the "Service").
 
-## 제2조 (서비스의 내용과 요금)
+## Article 2 (Services and fees)
 
-운영자는 이용자 기기의 위치정보를 받아 아래 서비스를 제공합니다. 위치기반서비스 자체는 무료입니다.
+The Operator receives location information from the user's device to provide the following services. The location-based services themselves are free.
 
-| 서비스 | 내용 |
+| Service | Description |
 |---|---|
-| 내 동네 정하기 | 지금 위치로 내 동네(행정구역)를 정하고 프로필에 표시합니다. |
-| 주변 보기 | 지도와 게시판에서 내 주변의 모임과 글을 보여 줍니다. |
-| 위치 붙이기 | 모임과 글에 만든 곳의 위치를 붙입니다. |
-| 주변 알림 | 근처 모임의 모임장이 보낸 알림을 받습니다. |
-| 날씨 | 지도에서 보고 있는 곳의 날씨를 보여 줍니다. |
+| Setting your neighborhood | Sets your neighborhood (administrative area) from your current location and shows it on your profile. |
+| Seeing what's nearby | Shows meetups and posts near you on the map and board. |
+| Attaching a location | Attaches the place where a meetup or post was made. |
+| Nearby alerts | You receive alerts sent by hosts of meetups near you. |
+| Weather | Shows the weather for the place you are viewing on the map. |
 
-## 제3조 (수집하는 위치정보와 방법)
+## Article 3 (Location information collected and how)
 
-1. 운영자는 이용자가 기기에서 위치 권한을 허락한 경우에만 기기의 위치(GPS, Wi-Fi, 기지국 기반)를 받습니다.
-2. 위치는 앱을 쓰는 동안에만 받으며, 앱을 닫은 뒤에는 받지 않습니다.
-3. 가입할 때 내 동네를 정하려면 위치를 한 번 받아야 합니다. 그 뒤에는 위치 권한을 꺼도 마지막으로 받은 위치를 기준으로 서비스를 쓸 수 있습니다.
+1. The Operator receives the device's location (based on GPS, Wi-Fi, or cell towers) only if the user has allowed location permission on the device.
+2. Location is received only while the app is in use, and not after the app is closed.
+3. To set your neighborhood at sign-up, your location must be received once. After that, you can turn location permission off and keep using the Service based on the last location received.
 
-## 제4조 (위치정보의 이용, 공개, 보유 기간)
+## Article 4 (Use, disclosure, and retention of location information)
 
-| 위치정보 | 정밀도 | 누가 볼 수 있나 | 보유 기간 |
+| Location information | Precision | Who can see it | Retention |
 |---|---|---|---|
-| 프로필의 동네 이름 | 행정구역 이름만 (좌표 없음) | 로그인한 다른 이용자 (프로필) | 탈퇴 시까지. 기기의 위치가 다른 동네로 바뀌면 새 동네로 바꿉니다. |
-| 이 기기에 저장한 마지막 위치 | 받은 좌표 그대로 | 본인만 (이 기기에만 저장) | 다음 위치를 받을 때 덮어씁니다. 앱을 지우면 함께 지워집니다. |
-| 주변 알림용 위치 | 약 100m 단위로 반올림 | 본인만 | 마지막 갱신 후 7일까지 알림 대상 판단에 쓰고, 새 위치로 덮어씁니다. 탈퇴 시 삭제 |
-| 모임·글에 붙인 위치 | 이용자가 정한 곳 | 로그인한 다른 이용자 | 그 모임·글이 지워질 때까지 |
-| 날씨를 받는 데 쓰는 좌표 | 약 1km 단위로 반올림 | 운영자 서버만 (이용자와 연결하지 않음) | 날씨 자료의 유효 시간 동안 |
+| Neighborhood name on your profile | Administrative area name only (no coordinates) | Other signed-in users (on your profile) | Until account deletion. Updated when your device's location moves to another neighborhood. |
+| Last location saved on this device | Coordinates as received | Only you (saved only on this device) | Overwritten by the next location received. Deleted when the app is removed. |
+| Location for nearby alerts | Rounded to about 100 m | Only you | Used to decide alert recipients for up to 7 days after the last update, and overwritten by the new location. Deleted on account deletion. |
+| Location attached to meetups and posts | The place the user chose | Other signed-in users | Until that meetup or post is deleted |
+| Coordinates used to get weather | Rounded to about 1 km | Only the Operator's server (not linked to users) | While the weather data is valid |
 
-주변 알림을 보내는 모임장에게는 "몇 명에게 보내지는지"만 보이며, 받는 사람이 누구인지와 어디에 있는지는 보이지 않습니다.
+A host who sends a nearby alert sees only how many people it will reach; they cannot see who receives it or where they are.
 
-## 제5조 (위치정보 이용·제공 사실 확인자료)
+## Article 5 (Records of use and provision of location information)
 
-운영자는 위치정보의 수집·이용·제공 사실을 확인할 수 있는 자료(누구의 위치를 언제, 어떤 목적으로 받거나 이용·제공했는지)를 위치정보시스템에 자동으로 기록하며, 6개월 동안 보관한 뒤 파기합니다. 이 자료에는 위치 값 자체는 남기지 않습니다.
+The Operator automatically records, in its location information system, data that confirms the collection, use, and provision of location information (whose location was received, used, or provided, when, and for what purpose), keeps it for 6 months, and then deletes it. These records do not contain the location values themselves.
 
-## 제6조 (제3자 제공)
+## Article 6 (Provision to third parties)
 
-1. 운영자는 이용자의 동의 없이 위치정보를 제3자에게 제공하지 않습니다.
-2. 제4조의 표에서 "로그인한 다른 이용자"에게 보이는 것은 프로필의 동네 이름과 이용자가 모임·글에 직접 붙인 위치뿐이며, 서비스의 기능으로 공개됩니다. 이용자의 실제 위치(좌표)는 다른 이용자에게 보이지 않습니다.
-3. 서버 운영을 맡은 업체와 국외 이전에 관한 내용은 [개인정보 처리방침](privacy)을 따릅니다.
+1. The Operator does not provide users' location information to third parties without their consent.
+2. What other signed-in users can see in the table in Article 4 is only the neighborhood name on your profile and the locations you attached to meetups and posts yourself, which are shown as features of the Service. Your actual location (coordinates) is not visible to other users.
+3. Information about the companies that run the servers and international transfers follows the [Privacy Policy](privacy).
 
-## 제7조 (이용자의 권리)
+## Article 7 (Users' rights)
 
-1. 이용자는 언제든지 위치정보 수집·이용·제공에 대한 동의의 전부 또는 일부를 철회할 수 있습니다. 기기의 설정에서 위치 권한을 끄면 수집이 멈춥니다.
-2. 이용자는 위치정보 수집·이용·제공의 일시 중지를 요구할 수 있습니다.
-3. 이용자는 아래 자료의 열람이나 고지를 요구할 수 있고, 잘못된 내용은 정정을 요구할 수 있습니다.
-   - 본인에 대한 위치정보 이용·제공 사실 확인자료
-   - 본인의 위치정보가 법령에 따라 제3자에게 제공된 이유와 내용
-4. 동의를 철회하면 운영자는 수집한 위치정보와 이용·제공 사실 확인자료(철회한 범위에 해당하는 것)를 지체 없이 파기합니다.
-5. 주변 알림을 받지 않으려면 앱의 설정에서 끌 수 있습니다.
+1. Users can withdraw all or part of their consent to the collection, use, and provision of location information at any time. Turning off location permission in the device settings stops collection.
+2. Users can ask for the collection, use, and provision of location information to be suspended temporarily.
+3. Users can ask to view or be told about the following, and ask for incorrect information to be corrected:
+   - records of the use and provision of their location information; and
+   - the reasons for and details of any provision of their location information to third parties under the law.
+4. When consent is withdrawn, the Operator deletes, without delay, the location information collected and the records of its use and provision (to the extent of the withdrawal).
+5. To stop receiving nearby alerts, turn them off in the app's settings.
 
-## 제8조 (법정대리인의 권리)
+## Article 8 (Rights of legal representatives)
 
-만 14세 미만 아동의 위치정보를 다루려면 법정대리인의 동의가 필요합니다. 서비스는 만 14세 이상만 가입할 수 있어 이에 해당하는 이용자를 받지 않습니다.
+Handling the location information of children under 14 requires the consent of a legal representative. Only people aged 14 or older can sign up for the Service, so it does not accept such users.
 
-## 제9조 (8세 이하의 아동 등의 보호의무자의 권리)
+## Article 9 (Rights of guardians of children aged 8 or under and others)
 
-8세 이하의 아동, 피성년후견인, 중증장애인의 보호의무자가 그 사람의 생명이나 신체를 보호하려고 위치정보의 이용·제공에 동의하는 경우 본인의 동의가 있는 것으로 봅니다. 이 경우 보호의무자는 서면으로 운영자에게 요청해야 하며, 이용자의 권리를 모두 행사할 수 있습니다.
+If the guardian of a child aged 8 or under, an adult under guardianship, or a person with a severe disability consents to the use or provision of that person's location information to protect their life or body, the person is deemed to have consented. In this case, the guardian must make the request to the Operator in writing and may exercise all of the user's rights.
 
-## 제10조 (손해배상과 면책)
+## Article 10 (Damages and exemptions)
 
-1. 운영자가 관련 법령을 어겨 이용자에게 손해가 생기면 이용자는 배상을 청구할 수 있습니다. 운영자는 고의나 과실이 없음을 증명하지 못하면 책임을 집니다.
-2. 운영자는 천재지변, 이용자의 귀책 사유, 통신 장애 등 운영자가 막을 수 없는 이유로 생긴 손해에는 책임을 지지 않습니다.
+1. If the Operator breaks applicable law and a user suffers damage, the user can claim compensation. The Operator is liable unless it proves that it acted without intent or negligence.
+2. The Operator is not liable for damage caused by reasons beyond its control, such as natural disasters, causes attributable to the user, or network failures.
 
-## 제11조 (분쟁의 조정)
+## Article 11 (Dispute mediation)
 
-위치정보와 관련한 분쟁이 협의로 풀리지 않으면 방송통신위원회에 재정을 신청하거나 개인정보분쟁조정위원회에 조정을 신청할 수 있습니다.
+If a dispute about location information is not resolved through discussion, you can apply for a ruling to the Korea Communications Commission or for mediation to the Personal Information Dispute Mediation Committee.
 
-## 제12조 (위치정보관리책임자와 연락처)
+## Article 12 (Location information manager and contact)
 
-- 운영자: DDD (대표 김동현)
-- 주소: 경기도 군포시 용호1로 56, 502-1호 37(당동, 대림프라자)
-- 위치정보관리책임자: 김동현
-- 이메일: contact@dee3.me
+- Operator: DDD (Representative: Donghyun Kim)
+- Address: 502-1 37, Daelim Plaza, 56 Yongho 1-ro, Gunpo-si, Gyeonggi-do (Dang-dong), Republic of Korea
+- Location information manager: Donghyun Kim
+- Email: contact@dee3.me
 
-## 변경 이력
+## Change history
 
-- 2026년 11월 21일: 처음 시행 (버전 1.0)
+- November 21, 2026: first effective (version 1.0)

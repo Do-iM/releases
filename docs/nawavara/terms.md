@@ -1,142 +1,143 @@
 ---
-title: 나와바라 이용약관
+title: Nawavara Terms of Service
+lang: en
 ---
 
-# 나와바라 이용약관
+# Nawavara Terms of Service
 
-- 시행일: 2026년 11월 21일
-- 버전: 1.0
+- Effective date: November 21, 2026
+- Version: 1.0
 
-[English](en/terms)
+This is an English translation of the Korean original ([한국어](ko/terms)). If the two differ, the Korean version prevails.
 
-## 제1조 (목적)
+## Article 1 (Purpose)
 
-이 약관은 DDD(이하 "운영자")이 제공하는 나와바라(이하 "서비스")를 이용할 때 운영자와 이용자의 권리, 의무, 책임을 정합니다.
+These terms set out the rights, obligations, and responsibilities of DDD (the "Operator") and users when using Nawavara (the "Service") provided by the Operator.
 
-## 제2조 (용어)
+## Article 2 (Definitions)
 
-1. "서비스"는 동네 지도에서 모임을 만들고 찾고, 게시판과 채팅으로 이야기하는 모바일 앱 나와바라와 그에 딸린 기능을 말합니다.
-2. "이용자"는 이 약관에 동의하고 서비스를 쓰는 사람을 말합니다.
-3. "게시물"은 이용자가 서비스에 올린 모임 정보, 글, 댓글, 채팅 메시지, 사진, 프로필을 말합니다.
-4. "코인"은 서비스 안에서 유료 기능을 쓰는 데 쓰는 재화를 말합니다.
+1. "Service" means the Nawavara mobile app, in which people create and find meetups on a neighborhood map and talk on a board and in chats, and its related features.
+2. "User" means a person who agrees to these terms and uses the Service.
+3. "Content" means meetup information, posts, comments, chat messages, photos, and profiles that users put on the Service.
+4. "Coins" means the in-app currency used for paid features in the Service.
 
-## 제3조 (약관의 효력과 변경)
+## Article 3 (Effect and changes of these terms)
 
-1. 이 약관은 앱과 운영자의 웹페이지에 게시하며, 이용자가 동의하면 효력이 생깁니다.
-2. 운영자는 법령을 어기지 않는 범위에서 약관을 바꿀 수 있습니다. 바꿀 때는 시행 7일 전부터, 이용자에게 불리한 변경은 30일 전부터 앱에서 알립니다.
-3. 이용자가 바뀐 약관에 동의하지 않으면 탈퇴할 수 있습니다. 알린 뒤 시행일까지 거부 의사를 밝히지 않으면 동의한 것으로 봅니다. 이 점은 알릴 때 함께 안내합니다.
+1. These terms are posted in the app and on the Operator's web page, and take effect when the user agrees to them.
+2. The Operator may change these terms within the limits of the law. The Operator will announce changes in the app at least 7 days before they take effect, or at least 30 days before for changes unfavorable to users.
+3. A user who does not agree to the changed terms may delete their account. If the user does not object by the effective date after the announcement, the user is deemed to have agreed. The announcement will say so.
 
-## 제4조 (가입과 계정)
+## Article 4 (Sign-up and accounts)
 
-1. 만 14세 이상만 가입할 수 있습니다.
-2. 가입은 Google 또는 Apple 계정으로 로그인하고 프로필을 만드는 것으로 이루어집니다.
-3. 이용자는 이름, 성별, 생년월일을 사실대로 넣어야 합니다. 성별과 생년월일은 가입 뒤 바꿀 수 없습니다.
-4. 한 사람이 다른 사람의 계정을 쓰거나 계정을 넘겨줄 수 없습니다.
-5. 운영자는 아래의 경우 가입을 받아들이지 않거나 나중에 취소할 수 있습니다.
-   - 거짓 정보를 넣었거나 다른 사람을 사칭한 경우
-   - 이 약관을 어겨 이용이 제한된 사람이 다시 가입하는 경우
-   - 나이 조건을 채우지 못한 경우
+1. You must be at least 14 years old to sign up.
+2. You sign up by signing in with a Google or Apple account and creating a profile.
+3. You must enter your real name, gender, and date of birth. Gender and date of birth cannot be changed after sign-up.
+4. You may not use another person's account or hand your account over to someone else.
+5. The Operator may refuse a sign-up, or cancel it later, if:
+   - false information was entered or the user impersonated someone else;
+   - a person whose use was restricted for breaking these terms signs up again; or
+   - the age requirement is not met.
 
-## 제5조 (서비스의 내용)
+## Article 5 (What the Service offers)
 
-1. 서비스는 아래 기능을 제공합니다.
-   - 지도에서 주변 모임과 글 보기, 모임 만들기와 참여하기
-   - 동네 게시판 (글, 댓글, 좋아요, 북마크)
-   - 모임 채팅과 1:1 채팅
-   - 회사·학교 메일 인증과, 채팅으로 보내는 명함
-   - 알림 (새 메시지, 댓글, 주변 모임)
-   - 코인으로 쓰는 유료 기능 (모임 말풍선 꾸미기, 주변 알림 보내기)
-2. 운영자는 서비스의 내용을 바꾸거나 일부를 끝낼 수 있으며, 이용자에게 큰 영향이 있는 변경은 미리 알립니다.
-3. 점검, 장애, 통신 문제 등으로 서비스가 잠시 멈출 수 있습니다.
+1. The Service offers:
+   - viewing nearby meetups and posts on a map, and creating and joining meetups;
+   - a neighborhood board (posts, comments, likes, bookmarks);
+   - meetup chats and one-on-one chats;
+   - company and school email verification, and name cards sent in chats;
+   - notifications (new messages, comments, nearby meetups); and
+   - paid features used with coins (decorating a meetup's bubble, sending nearby alerts).
+2. The Operator may change the Service or end parts of it, and will announce in advance any change that significantly affects users.
+3. The Service may stop temporarily for maintenance, outages, network problems, and similar reasons.
 
-## 제6조 (오프라인 만남에 대한 주의)
+## Article 6 (Meeting in person)
 
-1. 서비스는 이용자들이 서로 만날 수 있게 돕는 도구이며, 운영자는 모임을 주최하거나 이용자의 신원을 보증하지 않습니다.
-2. 모임에서 일어나는 일의 책임은 참여한 당사자에게 있습니다. 처음 만나는 사람과는 사람이 많은 공개된 장소에서 만나고, 개인 연락처·집 주소·금융 정보를 함부로 알려 주지 마세요.
-3. 위험하거나 불법적인 일을 겪었다면 즉시 경찰(112)에 신고하고, 앱의 신고 기능 또는 운영자 연락처로 알려 주세요.
+1. The Service is a tool that helps users meet each other. The Operator does not host meetups or vouch for any user's identity.
+2. Responsibility for what happens at a meetup lies with the people who take part. Meet people you don't know in busy public places, and don't share your personal contact details, home address, or financial information carelessly.
+3. If you experience something dangerous or illegal, report it to the police right away (112 in Korea, or your local emergency number), and tell us using the report feature in the app or the Operator's contact below.
 
-## 제7조 (이용자의 의무와 금지 행위)
+## Article 7 (User obligations and prohibited conduct)
 
-이용자는 아래 행위를 해서는 안 됩니다.
+Users must not:
 
-1. 다른 사람을 사칭하거나 거짓 정보를 올리는 행위
-2. 욕설, 혐오 표현, 성희롱, 스토킹, 괴롭힘 등 다른 사람에게 피해를 주는 행위
-3. 음란물, 불법 촬영물, 폭력적이거나 잔혹한 내용을 올리는 행위
-4. 성매매, 도박, 마약, 불법 금융 등 불법 행위를 알선하거나 권하는 행위
-5. 미성년자를 대상으로 한 부적절한 접근
-6. 다른 사람의 개인정보나 사진을 동의 없이 올리는 행위
-7. 저작권 등 다른 사람의 권리를 침해하는 행위
-8. 광고, 홍보, 영업, 종교 권유, 다단계 권유를 목적으로 한 게시물과 메시지 (운영자가 허용한 경우는 제외)
-9. 같은 내용을 반복해서 올리거나, 자동화된 방법으로 서비스를 쓰거나, 서비스의 정상 운영을 방해하는 행위
-10. 서비스의 취약점을 악용하거나 다른 이용자의 정보를 무단으로 모으는 행위
-11. 코인이나 계정을 현금 등으로 거래하는 행위
+1. impersonate others or post false information;
+2. harm others through abuse, hate speech, sexual harassment, stalking, bullying, or similar behavior;
+3. post obscene material, illegally filmed material, or violent or cruel content;
+4. arrange or encourage illegal activity such as prostitution, gambling, drugs, or illegal financial services;
+5. approach minors inappropriately;
+6. post other people's personal information or photos without their consent;
+7. infringe copyright or other rights of others;
+8. post content or send messages for advertising, promotion, sales, religious solicitation, or multi-level marketing (unless the Operator allows it);
+9. post the same content repeatedly, use the Service by automated means, or interfere with its normal operation;
+10. exploit vulnerabilities in the Service or collect other users' information without permission; or
+11. trade coins or accounts for cash or anything else of value.
 
-## 제8조 (게시물)
+## Article 8 (Content)
 
-1. 게시물의 권리와 책임은 올린 이용자에게 있습니다.
-2. 이용자는 운영자가 서비스를 제공하는 데 필요한 범위(보여 주기, 저장하기, 크기 바꾸기 등)에서 게시물을 쓸 수 있게 허락합니다. 운영자는 이용자의 동의 없이 게시물을 서비스 밖의 다른 목적으로 쓰지 않습니다.
-3. 운영자는 제7조를 어긴 게시물을 미리 알리지 않고 가리거나 지울 수 있습니다.
-4. 이용자가 지운 게시물은 바로 지우며 따로 보관하지 않습니다. 다만 지우기 전에 신고된 게시물은 신고할 때 저장한 기록으로 남아, 신고 처리가 끝날 때까지(신고한 때부터 최대 90일) 보관합니다. 자세한 내용은 개인정보 처리방침을 따릅니다.
-5. 자신의 권리가 침해된 게시물을 발견하면 운영자에게 삭제를 요청할 수 있습니다.
+1. The rights to and responsibility for content belong to the user who posted it.
+2. Users allow the Operator to use their content to the extent needed to provide the Service (showing it, storing it, resizing it, and so on). The Operator will not use content for other purposes outside the Service without the user's consent.
+3. The Operator may hide or delete content that breaks Article 7 without prior notice.
+4. Content a user deletes is deleted right away and not kept. However, if it was reported before being deleted, the record saved at the time of the report is kept until the report is handled (at most 90 days from the report). See the Privacy Policy for details.
+5. If you find content that infringes your rights, you can ask the Operator to remove it.
 
-## 제9조 (신고와 이용 제한)
+## Article 9 (Reports and restrictions)
 
-1. 이용자는 약관을 어긴 게시물, 채팅 메시지, 모임, 이용자를 앱에서 신고할 수 있습니다.
-2. 운영자는 신고 내용과 기록을 확인해 아래 조치를 할 수 있습니다.
-   - 게시물 가리기 또는 삭제
-   - 경고
-   - 일정 기간 또는 영구적인 이용 정지
-3. 조치를 할 때는 이유를 알립니다. 다만 긴급하거나 법령상 알릴 수 없는 경우는 예외로 합니다.
-4. 조치에 이의가 있으면 운영자 연락처로 알려 주세요. 운영자는 다시 검토해 결과를 알려 드립니다.
+1. Users can report content, chat messages, meetups, or users that break these terms in the app.
+2. After reviewing the report and the records, the Operator may:
+   - hide or delete content;
+   - issue a warning; or
+   - suspend use for a period or permanently.
+3. The Operator will give the reason for any action, except in urgent cases or where the law does not allow it.
+4. If you disagree with an action, contact the Operator. The Operator will review it again and tell you the result.
 
-## 제10조 (코인과 유료 기능)
+## Article 10 (Coins and paid features)
 
-1. 코인은 Google Play 또는 App Store의 인앱 결제로 살 수 있습니다. 가격과 수량은 앱의 코인 화면에 표시합니다.
-2. 코인으로 쓸 수 있는 기능과 필요한 코인 수는 앱에 표시하며, 운영자는 이를 바꿀 수 있습니다. 바꿀 때는 미리 알립니다.
-3. **청약 철회와 환불**
-   - 사고 나서 쓰지 않은 코인은 구매일부터 7일 안에 환불을 요청할 수 있습니다.
-   - 일부라도 쓴 코인 묶음, 이벤트 등으로 무료로 받은 코인은 환불되지 않습니다.
-   - 환불은 결제한 스토어(Google Play, App Store)의 절차를 따릅니다. 스토어에서 처리되지 않는 경우 운영자 연락처로 요청해 주세요.
-   - 미성년자가 법정대리인의 동의 없이 결제한 경우 본인 또는 법정대리인이 취소할 수 있습니다.
-4. 코인으로 산 기능(말풍선, 주변 알림)은 쓴 뒤에는 되돌릴 수 없습니다. 다만 운영자의 잘못으로 기능이 제공되지 않은 경우 쓴 코인을 돌려 드립니다.
-5. 탈퇴하면 남은 코인은 사라지며 되살릴 수 없습니다. 환불받을 수 있는 코인이 있다면 탈퇴 전에 요청해 주세요.
-6. 이용 정지를 당한 경우에도 법령상 환불 대상인 코인은 환불합니다. 다만 부정한 방법으로 얻은 코인은 회수할 수 있습니다.
+1. Coins can be bought through in-app purchases on Google Play or the App Store. Prices and amounts are shown on the coin screen in the app.
+2. The features coins can be used for and the number of coins needed are shown in the app, and the Operator may change them with advance notice.
+3. **Cancellation and refunds**
+   - You can ask for a refund of unused coins within 7 days of purchase.
+   - Coin packs that have been partly used, and coins received for free (for example, from events), are not refundable.
+   - Refunds follow the procedure of the store you paid through (Google Play, App Store). If the store does not handle it, contact the Operator.
+   - If a minor paid without a legal guardian's consent, the minor or the guardian may cancel the purchase.
+4. Features bought with coins (bubbles, nearby alerts) cannot be undone once used. However, if a feature was not provided because of the Operator's fault, the coins spent will be returned.
+5. When you delete your account, your remaining coins are lost and cannot be restored. If you have refundable coins, ask for the refund before deleting your account.
+6. Even if your use is suspended, coins that are refundable under the law will be refunded. Coins obtained by improper means may be taken back.
 
-## 제11조 (알림과 광고)
+## Article 11 (Notifications and advertising)
 
-1. 운영자는 서비스 이용에 필요한 알림(새 메시지, 댓글, 주변 모임, 중요한 공지)을 보낼 수 있으며, 이용자는 앱의 설정에서 종류별로 끌 수 있습니다.
-2. 광고성 정보는 수신에 동의한 이용자에게만 보내며, 언제든지 앱의 설정 > 알림에서 거부할 수 있습니다.
+1. The Operator may send notifications needed to use the Service (new messages, comments, nearby meetups, important announcements). Users can turn each type off in the app's settings.
+2. Advertising messages are sent only to users who have agreed to receive them, and users can opt out at any time in Settings > Notifications.
 
-## 제12조 (탈퇴와 이용 계약의 해지)
+## Article 12 (Account deletion and termination)
 
-1. 이용자는 언제든지 탈퇴할 수 있습니다.
-   - 앱의 설정 > 계정 관리 > "나와바라 계정 탈퇴": 나와바라의 데이터만 지웁니다. 로그인 계정과, 같은 계정을 쓰는 운영자의 다른 앱은 남습니다.
-   - "통합 계정 탈퇴"(https://apps.dee3.me/account/): 운영자의 모든 앱의 데이터와 로그인 계정을 지웁니다. 앱을 지운 뒤에도 이 웹페이지에서 할 수 있습니다.
-2. 탈퇴하면 프로필, 게시글, 1:1 채팅방과 메시지(상대 쪽 것까지), 남은 코인이 삭제되며 되살릴 수 없습니다. 다른 이용자의 글에 단 댓글과 모임 채팅의 메시지는 대화의 흐름이 끊기지 않게 작성자와 내용을 지우고 자리만 남깁니다. 이미 상대방의 기기에 전달된 메시지는 그 기기에 남아 있을 수 있습니다. 삭제와 보관의 구체적인 내용은 개인정보 처리방침을 따릅니다.
-3. 이용자가 모임장인 모임은 탈퇴와 함께 끝납니다. 참여자는 그때까지의 대화를 읽을 수 있으며, 끝난 모임은 30일 뒤 삭제됩니다.
+1. Users can delete their account at any time.
+   - Settings > Account > "Delete Nawavara account" in the app: deletes only your Nawavara data. Your sign-in account and the Operator's other apps that use the same account remain.
+   - "Delete account" (https://apps.dee3.me/account/): deletes your data in all of the Operator's apps and your sign-in account. You can do this on that web page even after removing the app.
+2. When you delete your account, your profile, posts, one-on-one chats and their messages (including the other person's side), and remaining coins are deleted and cannot be restored. Your comments on other users' posts and your messages in meetup chats keep their place with the author and content removed, so conversations are not broken. Messages already delivered to another person's device may remain on that device. Details on deletion and retention follow the Privacy Policy.
+3. Meetups you host end when you delete your account. Members can still read the conversation up to that point, and ended meetups are deleted after 30 days.
 
-## 제13조 (책임의 한계)
+## Article 13 (Limitation of liability)
 
-1. 운영자는 천재지변, 통신 장애 등 운영자가 막을 수 없는 이유로 서비스를 제공하지 못한 경우 책임을 지지 않습니다.
-2. 운영자는 이용자가 올린 게시물의 정확성이나 신뢰성을 보증하지 않으며, 이용자 사이 또는 이용자와 제3자 사이에 서비스를 매개로 일어난 일에 개입할 의무가 없습니다. 다만 운영자에게 고의 또는 중대한 과실이 있는 경우는 그렇지 않습니다.
-3. 지도와 날씨 정보는 외부 자료(OpenStreetMap, MET Norway)를 받아 보여 주는 것으로, 실제와 다를 수 있습니다.
-4. 이 조항은 관련 법령이 정한 운영자의 책임을 줄이거나 없애지 않습니다.
+1. The Operator is not responsible for failing to provide the Service for reasons beyond its control, such as natural disasters or network failures.
+2. The Operator does not guarantee the accuracy or reliability of content posted by users, and has no duty to intervene in matters between users, or between users and third parties, that arise through the Service. This does not apply where the Operator acted intentionally or with gross negligence.
+3. Map and weather information comes from outside sources (OpenStreetMap, MET Norway) and may differ from reality.
+4. This article does not reduce or remove any liability of the Operator set by applicable law.
 
-## 제14조 (분쟁의 해결)
+## Article 14 (Disputes)
 
-1. 이 약관은 대한민국 법을 따릅니다.
-2. 서비스 이용과 관련한 분쟁은 먼저 운영자와 이용자가 성실히 협의해 풉니다.
-3. 소송이 필요한 경우 관할 법원은 민사소송법에 따릅니다.
+1. These terms are governed by the laws of the Republic of Korea.
+2. Disputes about using the Service will first be resolved through good-faith discussion between the Operator and the user.
+3. If a lawsuit is needed, the competent court is determined under the Korean Civil Procedure Act.
 
-## 운영자 정보
+## Operator information
 
-- 상호: DDD
-- 대표자: 김동현
-- 주소: 경기도 군포시 용호1로 56, 502-1호 37(당동, 대림프라자)
-- 사업자등록번호: 762-50-01062
-- 통신판매업 신고번호: 2025-경기군포-0276 (신고기관: 경기도 군포시, 031-390-0990)
-- 이메일: contact@dee3.me
+- Business name: DDD
+- Representative: Donghyun Kim
+- Address: 502-1 37, Daelim Plaza, 56 Yongho 1-ro, Gunpo-si, Gyeonggi-do (Dang-dong), Republic of Korea
+- Business registration number: 762-50-01062
+- Mail-order business report number: 2025-경기군포-0276 (Gunpo City, Gyeonggi-do, +82-31-390-0990)
+- Email: contact@dee3.me
 
-## 변경 이력
+## Change history
 
-- 2026년 11월 21일: 처음 시행 (버전 1.0)
+- November 21, 2026: first effective (version 1.0)

@@ -1,21 +1,17 @@
 ---
-title: 약관과 정책
+title: Terms and Policies
 ---
 
-# 약관과 정책
+# Terms and Policies
 
-## 계정
+## Account
 
-- [계정 삭제](account/) (모든 앱의 데이터와 로그인 계정을 삭제합니다)
+- [Delete account](account/) (deletes your data in all apps and your sign-in account)
 
-## 나와바라
+## Nawavara
 
-- [이용약관](nawavara/terms)
-- [개인정보 처리방침](nawavara/privacy)
-- [위치기반서비스 이용약관](nawavara/location)
+- [Terms of Service](nawavara/terms)
+- [Privacy Policy](nawavara/privacy)
+- [Location-Based Services Terms](nawavara/location)
 
-### English
-
-- [Terms of Service](nawavara/en/terms)
-- [Privacy Policy](nawavara/en/privacy)
-- [Location-Based Services Terms](nawavara/en/location)
+한국어: [이용약관](nawavara/ko/terms) · [개인정보 처리방침](nawavara/ko/privacy) · [위치기반서비스 이용약관](nawavara/ko/location) · [계정 삭제](account/)

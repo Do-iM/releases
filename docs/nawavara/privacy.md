@@ -1,157 +1,158 @@
 ---
-title: 나와바라 개인정보 처리방침
+title: Nawavara Privacy Policy
+lang: en
 ---
 
-# 나와바라 개인정보 처리방침
+# Nawavara Privacy Policy
 
-DDD(이하 "운영자")은 나와바라(이하 "서비스") 이용자의 개인정보를 소중히 다루며, 「개인정보 보호법」 등 관련 법령을 지킵니다. 이 방침은 운영자가 어떤 정보를 왜 수집하고, 어떻게 쓰고, 언제 지우는지를 알려 드립니다.
+DDD (the "Operator") values the personal information of users of Nawavara (the "Service") and complies with the Personal Information Protection Act of Korea and other applicable laws. This policy explains what information the Operator collects and why, how it is used, and when it is deleted.
 
-- 시행일: 2026년 11월 21일
-- 버전: 1.0
+- Effective date: November 21, 2026
+- Version: 1.0
 
-[English](en/privacy)
+This is an English translation of the Korean original ([한국어](ko/privacy)). If the two differ, the Korean version prevails.
 
-## 1. 수집하는 개인정보와 수집 방법
+## 1. Information we collect and how
 
-### 가입할 때
+### When you sign up
 
-| 항목 | 필수 여부 | 수집 방법 |
+| Item | Required | How it is collected |
 |---|---|---|
-| Google 또는 Apple 계정의 식별자, 이메일 주소 | 필수 | Google·Apple 로그인 |
-| 이름(별명), 성별, 생년월일 | 필수 | 이용자가 입력 |
-| 프로필 사진, 소개 태그, 자기소개 | 선택 | 이용자가 입력 |
+| Google or Apple account identifier, email address | Required | Google or Apple sign-in |
+| Name (nickname), gender, date of birth | Required | Entered by you |
+| Profile photos, interest tags, bio | Optional | Entered by you |
 
-Apple 로그인에서 "이메일 가리기"를 고르면 Apple이 만든 중계용 이메일 주소만 받습니다. 운영자는 Google·Apple 계정의 비밀번호를 받지 않습니다.
+If you choose "Hide My Email" with Apple sign-in, we receive only the relay email address Apple creates. The Operator never receives your Google or Apple password.
 
-### 서비스를 쓰는 동안
+### While you use the Service
 
-| 항목 | 필수 여부 | 설명 |
+| Item | Required | Description |
 |---|---|---|
-| 위치정보 | 필수 (가입할 때 한 번, 기기 권한) | 내 동네를 정하고 주변 모임과 글을 보여 주는 데 씁니다. 가입한 뒤에는 위치 권한을 꺼도 마지막으로 받은 위치로 쓸 수 있습니다. 자세한 내용은 [위치기반서비스 이용약관](location)을 보세요. |
-| 모임, 게시글, 댓글, 채팅 메시지와 그 안의 사진 | 이용자가 작성 | 서비스의 내용 자체입니다. |
-| 회사·학교 인증: 소속 이름, 메일 주소의 해시 값 | 선택 | 인증한 이용자에게만 받습니다. 메일 주소는 인증 코드를 보내는 데만 쓰고 저장하지 않으며, 같은 주소로 여러 계정이 인증하지 못하게 하려고 되돌릴 수 없는 해시 값만 남깁니다. |
-| 전화번호 | 선택 | 이용자가 명함에 직접 넣어 채팅으로 보낸 경우에만 그 메시지에 저장됩니다. 프로필에는 저장하지 않습니다. |
-| 문의·버그 제보: 내용, 붙인 사진, 앱 버전, 기기 종류 | 이용자가 작성 | 문의에 답하고 문제를 고치는 데 씁니다. |
-| 신고: 신고 이유와 내용, 신고된 게시물·메시지와 그 앞뒤 대화, 사진 사본 | 신고할 때 | 신고를 처리하는 데 씁니다. 신고된 게시물이 나중에 지워져도 확인할 수 있게 신고한 순간의 모습을 저장합니다. |
-| 좋아요, 조회, 북마크, 알림 설정 | 자동 | 숫자 표시와 알림에 씁니다. |
-| 푸시 알림 토큰, 기기 종류(Android·iOS) | 선택 (기기 권한) | 알림을 보내는 데 씁니다. |
-| 코인 충전·사용 내역 | 유료 기능 이용 시 | 잔액 관리와 환불 처리에 씁니다. |
-| 서비스 이용 기록, 접속 일시, IP 주소 | 자동 | 서버가 자동으로 남깁니다. 오류 확인과 부정 이용 방지에 씁니다. |
+| Location | Required (once at sign-up, device permission) | Used to set your neighborhood and show meetups and posts near you. After sign-up, you can turn location permission off and the last location received is used. See the [Location-Based Services Terms](location) for details. |
+| Meetups, posts, comments, chat messages, and photos in them | Written by you | This is the content of the Service itself. |
+| Company/school verification: organization name, a hash of the email address | Optional | Only from users who verify. The email address is used only to send the verification code and is not stored; only an irreversible hash is kept so that the same address cannot verify multiple accounts. |
+| Phone number | Optional | Stored only in a message when you put it on a name card yourself and send it in a chat. It is not stored in your profile. |
+| Inquiries and bug reports: content, attached photos, app version, device type | Written by you | Used to answer inquiries and fix problems. |
+| Reports: reason and details, the reported content or message and the conversation around it, copies of photos | When you report | Used to handle reports. A snapshot is saved at the moment of the report so it can be checked even if the reported content is later deleted. |
+| Likes, views, bookmarks, notification settings | Automatic | Used for counts and notifications. |
+| Push notification token, device type (Android, iOS) | Optional (device permission) | Used to send notifications. |
+| Coin purchase and usage history | When using paid features | Used to manage balances and handle refunds. |
+| Service usage records, access time, IP address | Automatic | Recorded automatically by the server. Used to investigate errors and prevent abuse. |
 
-운영자는 주민등록번호, 주소록, 결제 카드 정보를 수집하지 않습니다. 전화번호는 위에 적은 명함의 경우 말고는 받지 않습니다. 유료 결제는 Google Play와 App Store가 처리하며, 운영자는 결제 수단 정보를 받지 않고 거래 확인에 필요한 영수증 정보만 받습니다.
+The Operator does not collect resident registration numbers, contacts, or payment card information. Apart from the name card case above, we do not collect phone numbers. Payments are processed by Google Play and the App Store; the Operator does not receive payment method information, only the receipt information needed to confirm a transaction.
 
-서비스에는 광고 식별자를 쓰는 광고나 제3자 분석 도구가 들어 있지 않습니다.
+The Service does not include advertising that uses advertising identifiers, or third-party analytics tools.
 
-## 2. 개인정보를 쓰는 목적
+## 2. Why we use your information
 
-- 회원 식별과 가입 의사 확인, 나이 확인
-- 지도·모임·게시판·채팅 등 서비스 제공
-- 새 메시지, 댓글, 주변 모임 알림 보내기 (주변 모임 알림은 모임과의 거리와, 프로필에 고른 관심사가 모임과 맞는 정도를 함께 보고 받을 이웃을 정합니다)
-- 유료 기능 제공과 환불 처리
-- 신고 처리, 이용약관을 어긴 이용자 제재, 분쟁 대응
-- 오류 확인과 서비스 개선
-- 광고성 정보 보내기 (따로 동의한 이용자에게만)
+- To identify members, confirm the intent to sign up, and check age
+- To provide the Service: map, meetups, board, chats, and more
+- To send notifications about new messages, comments, and nearby meetups (for nearby meetup alerts, recipients are chosen by their distance from the meetup together with how well the interests chosen in their profile match the meetup)
+- To provide paid features and handle refunds
+- To handle reports, act against users who break the Terms of Service, and respond to disputes
+- To investigate errors and improve the Service
+- To send advertising messages (only to users who agreed separately)
 
-## 3. 다른 이용자에게 보이는 정보
+## 3. Information other users can see
 
-서비스의 성격상 아래 정보는 다른 이용자에게 보입니다.
+Because of the nature of the Service, the following is visible to other users:
 
-- 이름(별명), 나이(생년월일이 아니라 나이만), 성별, 프로필 사진, 소개 태그, 자기소개
-- 내 동네 이름 (지도에 내 위치는 보이지 않습니다)
-- 인증한 종류("회사 인증", "학교 인증"). 어느 회사·학교인지는 보이지 않습니다.
-- 내가 만든 모임, 쓴 글과 댓글, 참여한 채팅방에 보낸 메시지와 사진
-- 내가 채팅으로 보낸 명함: 명함에 넣기로 고른 소속 이름, 전화번호, 한마디가 그 채팅방의 사람에게 보입니다.
+- Name (nickname), age (only age, not date of birth), gender, profile photos, interest tags, bio
+- Your neighborhood name (your location is not shown on the map)
+- The types you verified (company, school). Which company or school is not shown.
+- Meetups you create, posts and comments you write, and messages and photos you send in chats you joined
+- Name cards you send in a chat: the organization names, phone numbers, and short message you chose to include are visible to the people in that chat.
 
-이메일 주소, 생년월일, 인증에 쓴 메일 주소는 다른 이용자에게 보이지 않습니다. 올린 사진은 인터넷 주소를 아는 사람이면 로그인 없이도 볼 수 있으니, 공개되어도 괜찮은 사진만 올려 주세요.
+Your email address, date of birth, and the email address used for verification are not visible to other users. Anyone who knows the web address of a photo you upload can view it without signing in, so only upload photos you are comfortable making public.
 
-## 4. 보유 기간과 파기
+## 4. Retention and deletion
 
-개인정보는 회원 탈퇴 시 지체 없이 파기합니다. 이용자가 지운 글과 댓글도 바로 지우며 따로 보관하지 않습니다. 다만 아래의 경우에는 정해진 기간 동안 보관한 뒤 파기합니다.
+Personal information is deleted without delay when you delete your account. Posts and comments you delete are deleted right away and are not kept. In the following cases, information is kept for the stated period and then deleted.
 
-| 보관하는 정보 | 기간 | 이유 |
+| Information kept | Period | Reason |
 |---|---|---|
-| 신고 기록 (신고된 게시물·메시지와 앞뒤 대화, 사진 사본) | 신고 처리가 끝날 때까지, 신고한 때부터 최대 90일 | 신고 처리와 분쟁 대응. 운영자만 볼 수 있으며, 신고된 사람이 탈퇴하거나 게시물을 지워도 이 기간에는 남습니다. |
-| 문의·버그 제보에 붙인 사진 | 문의 처리가 끝날 때까지 | 처리가 끝나면 바로 지웁니다. |
-| 채팅에 올린 사진 | 보낸 날부터 90일 | 그 뒤에는 사진 파일을 지우고 "기간이 지난 사진"으로 보입니다. |
-| 주변 알림용 위치정보 | 마지막 갱신 후 7일 | 그 뒤에는 알림 대상에서 빠지며, 새 위치로 덮어씁니다. |
-| 결제 기록 (상품, 금액, 스토어 거래 번호, 결제 시각)과 코인 충전·사용 내역 | 결제한 해의 다음 해부터 6년 | 전자상거래 등에서의 소비자보호에 관한 법률, 국세기본법 |
-| 소비자 불만 또는 분쟁 처리에 관한 기록 | 3년 | 같은 법률 |
-| 접속 기록 | 3개월 | 통신비밀보호법 |
+| Report records (the reported content or message, the conversation around it, copies of photos) | Until the report is handled, at most 90 days from the report | Handling reports and responding to disputes. Only the Operator can see them; they remain for this period even if the reported person deletes their account or the content. |
+| Photos attached to inquiries and bug reports | Until the inquiry is handled | Deleted as soon as it is handled. |
+| Photos sent in chats | 90 days from when they were sent | After that, the photo file is deleted and shown as an expired photo. |
+| Location for nearby alerts | 7 days after the last update | After that you are no longer included in alerts; it is overwritten by the new location. |
+| Payment records (product, amount, store transaction number, payment time) and coin purchase and usage history | 6 years from the start of the year after the payment | Act on the Consumer Protection in Electronic Commerce, Framework Act on National Taxes |
+| Records of consumer complaints or dispute handling | 3 years | Act on the Consumer Protection in Electronic Commerce |
+| Access logs | 3 months | Protection of Communications Secrets Act |
 
-파기할 때는 서버의 데이터베이스와 저장소에서 되살릴 수 없게 지웁니다.
+Deleted information is erased from the server's database and storage so that it cannot be recovered.
 
-탈퇴한 뒤에도 아래는 이용자를 알아볼 수 있는 정보 없이 남습니다.
+After you delete your account, the following remains without information that identifies you:
 
-- 다른 이용자의 글에 단 댓글과 모임 채팅의 메시지: 대화의 흐름이 끊기지 않게 작성자와 내용을 지우고 자리만 남깁니다 ("탈퇴한 사용자", "삭제된 댓글입니다").
-- 이용자가 모임장이던 모임: 끝난 모임이 되어 참여자가 그때까지의 대화를 읽을 수 있고, 30일 뒤 삭제됩니다.
-- 이미 상대방의 기기에 전달된 채팅 메시지: 상대방의 기기에 남아 있을 수 있습니다. 서버에서는 지웁니다.
-- 결제 기록과 코인 충전·사용 내역: 계정과의 연결을 끊고 위 표의 기간(결제한 해의 다음 해부터 6년) 동안 보관한 뒤 파기합니다.
+- Your comments on other users' posts and your messages in meetup chats: the author and content are removed and only their place remains, so conversations are not broken ("Deleted user", "This comment was deleted").
+- Meetups you hosted: they become ended meetups; members can still read the conversation up to that point, and they are deleted after 30 days.
+- Chat messages already delivered to another person's device: they may remain on that device. They are deleted from the server.
+- Payment records and coin purchase and usage history: unlinked from your account, kept for the period in the table above (6 years from the start of the year after the payment), and then deleted.
 
-## 5. 개인정보 처리의 위탁과 국외 이전
+## 5. Processors and international transfers
 
-운영자는 서비스를 제공하려고 아래 업체에 개인정보 처리를 맡깁니다.
+The Operator entrusts the processing of personal information to the following companies to provide the Service.
 
-| 받는 자 | 맡기는 일 | 이전되는 항목 | 이전 국가 | 보유 기간 |
+| Recipient | Task | Items transferred | Country | Retention |
 |---|---|---|---|---|
-| Supabase, Inc. (서버 인프라: Amazon Web Services) | 데이터베이스, 로그인, 파일 저장, 서버 기능 운영 | 이 방침 1항의 모든 항목 | 대한민국 (AWS 서울 리전). 운영 지원 과정에서 미국·싱가포르의 인력이 접근할 수 있음 | 탈퇴 또는 위탁 종료 시까지 |
-| Google LLC | Google 로그인, Android 푸시 알림 전달 (Firebase Cloud Messaging) | 계정 식별자, 푸시 토큰, 알림 제목과 내용 | 미국 | 전달 즉시 또는 Google 정책에 따름 |
-| Apple Inc. | Apple 로그인, iOS 푸시 알림 전달 (APNs) | 계정 식별자, 푸시 토큰, 알림 제목과 내용 | 미국 | 전달 즉시 또는 Apple 정책에 따름 |
-| Cloudflare, Inc. | 회사·학교 인증 코드 메일 발송 | 인증할 메일 주소, 인증 코드 | 미국 | 발송 즉시 또는 Cloudflare 정책에 따름 |
+| Supabase, Inc. (server infrastructure: Amazon Web Services) | Running the database, sign-in, file storage, and server functions | All items in section 1 | Republic of Korea (AWS Seoul region). Support staff in the United States and Singapore may access it while providing support | Until account deletion or the end of the contract |
+| Google LLC | Google sign-in, Android push notification delivery (Firebase Cloud Messaging) | Account identifier, push token, notification title and content | United States | Upon delivery, or per Google's policy |
+| Apple Inc. | Apple sign-in, iOS push notification delivery (APNs) | Account identifier, push token, notification title and content | United States | Upon delivery, or per Apple's policy |
+| Cloudflare, Inc. | Sending company/school verification code emails | The email address being verified, the verification code | United States | Upon sending, or per Cloudflare's policy |
 
-- 이전 시점과 방법: 서비스를 이용할 때마다 암호화된 통신(HTTPS)으로 전송합니다.
-- 국외 이전을 원하지 않으면 서비스 이용을 중단하고 탈퇴할 수 있습니다. 다만 이 경우 서비스를 이용할 수 없습니다.
+- When and how: transferred over encrypted connections (HTTPS) each time you use the Service.
+- If you do not want your information transferred abroad, you can stop using the Service and delete your account. In that case, you cannot use the Service.
 
-아래 서비스는 이용자의 기기가 직접 접속하며, 접속 과정에서 IP 주소가 전달됩니다. 운영자가 이용자를 식별할 수 있는 정보를 따로 보내지는 않습니다.
+Your device connects directly to the following services, and your IP address is passed on in the process. The Operator does not send them any information that identifies you.
 
-| 서비스 | 용도 | 전달되는 것 |
+| Service | Purpose | What is passed on |
 |---|---|---|
-| OpenFreeMap | 지도 바탕 그림 | IP 주소, 보고 있는 지도 영역 |
-| MET Norway (노르웨이 기상청) | 날씨 | 운영자 서버가 약 1km 단위로 반올림한 좌표만 보냅니다. 이용자를 식별하는 정보는 보내지 않습니다. |
-| Celeris (Marqo, Inc., 미국) | 주변 모임 알림을 받을 이웃의 순서 정하기 (모임과 관심사가 맞을 정도 계산) | 모임장이 주변에 알릴 때 운영자 서버가 모임 이름·설명·카테고리와 관심사 목록만 보냅니다. 이용자를 식별하는 정보와 이웃의 관심사는 보내지 않습니다. |
+| OpenFreeMap | Map background | IP address, the map area you are viewing |
+| MET Norway (Norwegian Meteorological Institute) | Weather | The Operator's server sends only coordinates rounded to about 1 km. No information identifying you is sent. |
+| Celeris (Marqo, Inc., United States) | Ordering which neighbors receive a nearby meetup alert (scoring how well a meetup matches interests) | When a host sends a nearby alert, the Operator's server sends only the meetup's name, description, and category and the list of interests. No information identifying users, and no neighbors' interests, are sent. |
 
-## 6. 개인정보의 제3자 제공
+## 6. Sharing with third parties
 
-운영자는 이용자의 개인정보를 5항에 적은 경우 말고는 외부에 제공하지 않습니다. 다만 법령에 따라 수사기관 등이 적법한 절차로 요구하는 경우에는 제공할 수 있습니다.
+The Operator does not provide your personal information to outside parties except as described in section 5. However, it may be provided when investigative agencies or other authorities request it through lawful procedures.
 
-## 7. 이용자의 권리와 행사 방법
+## 7. Your rights and how to exercise them
 
-이용자는 언제든지 아래 권리를 행사할 수 있습니다.
+You can exercise the following rights at any time:
 
-- **열람·정정**: 앱의 프로필 화면에서 내 정보를 보고 고칠 수 있습니다. 성별과 생년월일은 가입 뒤에 바꿀 수 없으며, 잘못 넣었다면 아래 연락처로 요청해 주세요.
-- **삭제**: 내가 쓴 글과 댓글은 앱에서 지울 수 있습니다.
-- **탈퇴(동의 철회)**: 앱의 설정 > 계정 관리의 "나와바라 계정 탈퇴"(나와바라의 데이터만) 또는 "통합 계정 탈퇴"(운영자의 모든 앱과 로그인 계정)로 탈퇴할 수 있습니다. 통합 계정 탈퇴는 앱을 지운 뒤에도 https://apps.dee3.me/account/ 에서 할 수 있습니다. 그래도 안 되면 아래 연락처로 요청하면 처리합니다.
-- **알림과 광고 수신 거부**: 앱의 설정 > 알림에서 끌 수 있습니다.
-- **위치 수집 거부**: 기기의 설정에서 위치 권한을 끌 수 있습니다. 이 경우 마지막으로 받은 위치를 기준으로 지도와 게시판을 보여 주며, 내 동네는 바뀌지 않습니다.
-- **인증 지우기**: 앱의 인증 화면에서 회사·학교 인증을 지울 수 있습니다.
+- **Access and correction**: view and edit your information on your profile screen in the app. Gender and date of birth cannot be changed after sign-up; if you entered them incorrectly, contact us below.
+- **Deletion**: you can delete your posts and comments in the app.
+- **Account deletion (withdrawing consent)**: use "Delete Nawavara account" (Nawavara data only) or "Delete account" (all of the Operator's apps and your sign-in account) under Settings > Account in the app. "Delete account" is also available at https://apps.dee3.me/account/ after removing the app. If that does not work, contact us below and we will handle it.
+- **Opting out of notifications and advertising**: turn them off in Settings > Notifications in the app.
+- **Refusing location collection**: turn off location permission in your device settings. The map and board will then use the last location received, and your neighborhood will not change.
+- **Removing verification**: remove company or school verification on the verification screen in the app.
 
-요청은 아래 연락처로도 할 수 있으며, 운영자는 지체 없이(10일 이내) 처리합니다. 법정대리인이나 위임을 받은 사람도 요청할 수 있습니다.
+You can also make requests by contacting us below, and the Operator will handle them without delay (within 10 days). A legal representative or a person you authorize can also make requests.
 
-## 8. 아동의 개인정보
+## 8. Children's information
 
-서비스는 만 14세 이상만 가입할 수 있습니다. 만 14세 미만의 가입이 확인되면 계정과 정보를 삭제합니다.
+Only people aged 14 or older can sign up for the Service. If we find that a child under 14 has signed up, we delete the account and its information.
 
-## 9. 개인정보를 안전하게 지키는 방법
+## 9. How we protect your information
 
-- 모든 통신은 암호화(HTTPS)합니다.
-- 데이터베이스는 이용자별 접근 규칙으로 보호해, 본인이 아닌 사람이 비공개 정보(채팅, 코인 잔액, 알림 설정 등)를 읽을 수 없게 합니다.
-- 운영자는 이용자의 비밀번호를 보관하지 않습니다 (Google·Apple 로그인만 씁니다).
-- 서버 관리 권한은 최소한의 사람에게만 주고, 관리용 키는 앱에 넣지 않습니다.
+- All communication is encrypted (HTTPS).
+- The database is protected by per-user access rules so that no one other than you can read your private information (chats, coin balance, notification settings, and so on).
+- The Operator does not store user passwords (only Google and Apple sign-in are used).
+- Server administration rights are given to as few people as possible, and administrative keys are never put in the app.
 
-## 10. 개인정보 보호책임자와 문의처
+## 10. Privacy officer and contact
 
-- 개인정보 보호책임자: 김동현 (대표)
-- 이메일: contact@dee3.me
-- 운영자: DDD (경기도 군포시 용호1로 56, 502-1호 37(당동, 대림프라자))
+- Privacy officer: Donghyun Kim (Representative)
+- Email: contact@dee3.me
+- Operator: DDD (502-1 37, Daelim Plaza, 56 Yongho 1-ro, Gunpo-si, Gyeonggi-do (Dang-dong), Republic of Korea)
 
-개인정보 침해에 대한 신고나 상담이 필요하면 아래 기관에 문의할 수 있습니다.
+If you need to report or get advice about a privacy violation, you can contact the following Korean agencies:
 
-- 개인정보침해신고센터: privacy.kisa.or.kr, 국번 없이 118
-- 개인정보분쟁조정위원회: www.kopico.go.kr, 1833-6972
-- 대검찰청 사이버수사과: www.spo.go.kr, 국번 없이 1301
-- 경찰청 사이버수사국: ecrm.police.go.kr, 국번 없이 182
+- Personal Information Infringement Report Center: privacy.kisa.or.kr, 118 (in Korea)
+- Personal Information Dispute Mediation Committee: www.kopico.go.kr, 1833-6972
+- Supreme Prosecutors' Office Cyber Investigation Division: www.spo.go.kr, 1301 (in Korea)
+- Korean National Police Agency Cyber Bureau: ecrm.police.go.kr, 182 (in Korea)
 
-## 11. 방침의 변경
+## 11. Changes to this policy
 
-이 방침을 바꿀 때는 시행 7일 전부터 앱과 이 페이지에서 알립니다. 수집 항목이나 이용 목적이 늘어나는 등 이용자에게 중요한 변경은 30일 전에 알리고, 필요한 경우 다시 동의를 받습니다.
+We will announce changes in the app and on this page at least 7 days before they take effect. Important changes for users, such as collecting new items or using information for new purposes, will be announced 30 days in advance, and we will ask for consent again where needed.
 
-- 2026년 11월 21일: 처음 시행 (버전 1.0)
+- November 21, 2026: first effective (version 1.0)
