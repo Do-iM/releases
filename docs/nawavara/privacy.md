@@ -118,9 +118,9 @@ The Operator does not provide your personal information to outside parties excep
 
 You can exercise the following rights at any time:
 
-- **Access and correction**: view and edit your information on your profile screen in the app. Gender and date of birth cannot be changed after sign-up; if you entered them incorrectly, contact us below.
+- **Access and correction**: view and edit your information, including gender and date of birth, on your profile screen in the app.
 - **Deletion**: you can delete your posts and comments in the app.
-- **Account deletion (withdrawing consent)**: use "Delete Nawavara account" (Nawavara data only) or "Delete account" (all of the Operator's apps and your sign-in account) under Settings > Account in the app. "Delete account" is also available at https://apps.dee3.me/account/ after removing the app. If that does not work, contact us below and we will handle it.
+- **Account deletion (withdrawing consent)**: use "Delete Nawavara account" (Nawavara data only) or "Delete entire account" (all of the Operator's apps and your sign-in account) under Settings > Delete account in the app. "Delete entire account" is also available at https://apps.dee3.me/account/ after removing the app. If that does not work, contact us below and we will handle it.
 - **Opting out of notifications and advertising**: turn them off in Settings > Notifications in the app.
 - **Refusing location collection**: turn off location permission in your device settings. The map and board will then use the last location received, and your neighborhood will not change.
 - **Removing verification**: remove company or school verification on the verification screen in the app.

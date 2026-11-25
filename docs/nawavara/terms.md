@@ -31,7 +31,7 @@ These terms set out the rights, obligations, and responsibilities of DDD (the "O
 
 1. You must be at least 14 years old to sign up.
 2. You sign up by signing in with a Google or Apple account and creating a profile.
-3. You must enter your real name, gender, and date of birth. Gender and date of birth cannot be changed after sign-up.
+3. You must enter your real name, gender, and date of birth. You can change your gender and date of birth after sign-up in Edit profile in the app.
 4. You may not use another person's account or hand your account over to someone else.
 5. The Operator may refuse a sign-up, or cancel it later, if:
    - false information was entered or the user impersonated someone else;
@@ -111,8 +111,8 @@ Users must not:
 ## Article 12 (Account deletion and termination)
 
 1. Users can delete their account at any time.
-   - Settings > Account > "Delete Nawavara account" in the app: deletes only your Nawavara data. Your sign-in account and the Operator's other apps that use the same account remain.
-   - "Delete account" (https://apps.dee3.me/account/): deletes your data in all of the Operator's apps and your sign-in account. You can do this on that web page even after removing the app.
+   - Settings > Delete account > "Delete Nawavara account" in the app: deletes only your Nawavara data. Your sign-in account and the Operator's other apps that use the same account remain.
+   - "Delete entire account" (https://apps.dee3.me/account/): deletes your data in all of the Operator's apps and your sign-in account. You can open it from Settings > Delete account in the app, or on that web page even after removing the app.
 2. When you delete your account, your profile, posts, one-on-one chats and their messages (including the other person's side), and remaining coins are deleted and cannot be restored. Your comments on other users' posts and your messages in meetup chats keep their place with the author and content removed, so conversations are not broken. Messages already delivered to another person's device may remain on that device. Details on deletion and retention follow the Privacy Policy.
 3. Meetups you host end when you delete your account. Members can still read the conversation up to that point, and ended meetups are deleted after 30 days.
 

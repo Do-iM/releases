@@ -33,8 +33,8 @@ Unused coins can be refunded within 7 days of purchase through the store you pai
 Open the menu on a profile, meetup, post, or comment, or long-press a chat message, then choose Report. To block someone, choose Block in the menu on their profile or post. You can unblock people in Settings > Blocked users.
 
 **How do I delete my account?**
-- Settings > Account > "Delete Nawavara account" deletes your Nawavara data only.
-- [Delete account](../account/) deletes your data in all of our apps and your sign-in account. This works even after you remove the app.
+- Settings > Delete account > "Delete Nawavara account" deletes your Nawavara data only.
+- [Delete entire account](../account/) deletes your data in all of our apps and your sign-in account. It is also in Settings > Delete account, and works even after you remove the app.
 
 ## Policies
 
