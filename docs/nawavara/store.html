@@ -22,7 +22,13 @@
     <meta property="og:description" content="내 동네에서 모이고, 이야기하고, 만나요" />
     <meta property="og:url" content="https://apps.dee3.me/nawavara/store" />
     <meta property="og:locale" content="ko_KR" />
+    <meta property="og:image" content="https://apps.dee3.me/nawavara/icon.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="나와바라 앱 아이콘" />
     <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/png" href="icon.png" />
+    <link rel="apple-touch-icon" href="icon.png" />
     <script>
       "use strict";
       const c = (new URLSearchParams(location.search).get("c") || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 40);
@@ -79,6 +85,13 @@
         padding: 28px 20px;
         text-align: center;
       }
+      .icon {
+        display: block;
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 16px;
+        border-radius: 22px;
+      }
       h1 {
         margin: 0 0 8px;
         font-size: 28px;
@@ -113,6 +126,7 @@
   <body>
     <main>
       <section class="card">
+        <img class="icon" src="icon.png" width="96" height="96" alt="" />
         <h1>나와바라</h1>
         <p>내 동네에서 모이고, 이야기하고, 만나요</p>
         <div class="buttons">
