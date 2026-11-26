@@ -48,8 +48,6 @@
         --text: #1b1b1a;
         --muted: #66655f;
         --line: #e2e1dc;
-        --btn: #1b1b1a;
-        --btn-text: #ffffff;
       }
       @media (prefers-color-scheme: dark) {
         :root {
@@ -58,8 +56,6 @@
           --text: #ecebe6;
           --muted: #a3a29b;
           --line: #3a3936;
-          --btn: #ecebe6;
-          --btn-text: #161615;
         }
       }
       * {
@@ -108,18 +104,13 @@
         gap: 12px;
       }
       .buttons a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        max-width: 260px;
-        min-height: 48px;
-        padding: 0 20px;
-        border-radius: 8px;
-        background: var(--btn);
-        color: var(--btn-text);
-        font-weight: 600;
-        text-decoration: none;
+        display: block;
+        line-height: 0;
+      }
+      .buttons img {
+        display: block;
+        height: 52px;
+        width: auto;
       }
     </style>
   </head>
@@ -130,8 +121,8 @@
         <h1>나와바라</h1>
         <p>내 동네에서 모이고, 이야기하고, 만나요</p>
         <div class="buttons">
-          <a id="ios" href="https://apps.apple.com/app/apple-store/id6833378263?pt=126696895&amp;mt=8">App Store</a>
-          <a id="android" href="https://play.google.com/store/apps/details?id=me.dee3.nawavara&amp;referrer=utm_source%3Dlink">Google Play</a>
+          <a id="ios" href="https://apps.apple.com/app/apple-store/id6833378263?pt=126696895&amp;mt=8"><img src="badge-app-store.png" width="168" height="52" alt="App Store에서 다운로드 하기" /></a>
+          <a id="android" href="https://play.google.com/store/apps/details?id=me.dee3.nawavara&amp;referrer=utm_source%3Dlink"><img src="badge-google-play.png" width="175" height="52" alt="Google Play에서 다운로드" /></a>
         </div>
       </section>
     </main>
